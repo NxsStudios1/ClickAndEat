@@ -1,37 +1,53 @@
-/*ackage org.clickandeat.modelo.entidades.usuario;
+package org.clickandeat.modelo.entidades.usuario;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.clickandeat.modelo.entidades.base.Entidad;
 
-
-import java.sql.Timestamp;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "TBL_USUARIO")
-@AttributeOverride(name = "id", column = @Column(name = "idUsuario"))
-public class Usuario extends Entidad
-{
-    @Column(name = "usuario", nullable = false)
-    private String usuario;
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Table(name = "tbl_usuario")
 
-    @Column(name = "email", nullable = false)
-    private String email;
+public class Usuario extends Entidad {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUsuario", nullable = false)
+    private Integer idUsuario;
 
-    @Column(name = "contrasena", nullable = false)
-    private String password;
+    @Column(name = "nombre", length = 100, nullable = false)
+    private String nombre;
 
-    @Column(name = "fechaRegistro", nullable = false, updatable = false, insertable = false)
-    private Timestamp fechaRegistro;
+    @Column(name = "telefono", length = 15, nullable = false)
+    private String telefono;
 
-    @ManyToOne
-    @JoinColumn(name = "CAT_OBJETIVO_idObjetivos")
-    private Objetivo objetivo;
+    @Column(name = "contrasena", length = 255, nullable = false)
+    private String contrasena;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idRol", nullable = false)
+    private Rol rol;
+
+    public RolEnum getRolEnum() {
+        return rol != null ? rol.toEnum() : null;
+    }
+
+    public void setRolEnum(RolEnum rolEnum) {
+        if (rolEnum != null) {
+            this.rol = new Rol(rolEnum);
+        }
+    }
+
+    public boolean isAdministrador() {
+        return getRolEnum() == RolEnum.ADMINISTRADOR;
+    }
+
+    public boolean isCliente() {
+        return getRolEnum() == RolEnum.CLIENTE;
+    }
 }
 
-
- */

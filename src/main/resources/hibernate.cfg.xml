@@ -24,7 +24,8 @@
         <property name="hibernate.transform_hbm_xml.enabled">true</property>
 
         <!-- Nos conectamos con las bases de datos sql , con nuestras entidades -->
-        <mapping class = ""/>
+        <mapping class = "org.clickandeat.modelo.entidades.usuario.Usuario"/>
+        <mapping class = "org.clickandeat.modelo.entidades.usuario.Rol"/>
         <mapping class = ""/>
         <mapping class = ""/>
 

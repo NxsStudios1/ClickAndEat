@@ -3,12 +3,13 @@ package org.clickandeat.modelo.basedatos.sql.hiberimpl;
 import lombok.NoArgsConstructor;
 import org.clickandeat.modelo.basedatos.hibernate.HibernateUtil;
 import org.clickandeat.modelo.basedatos.sql.Sql;
+import org.clickandeat.modelo.entidades.usuario.Usuario;
 import org.hibernate.Session;
-
 import java.util.List;
-/*
+
 @NoArgsConstructor
-public class UsuarioHiberImpl implements Sql<Usuario> {
+public class UsuarioHiberImpl implements Sql<Usuario>
+{
     private static UsuarioHiberImpl usuarioHiber;
 
     public static UsuarioHiberImpl getInstance()
@@ -26,7 +27,7 @@ public class UsuarioHiberImpl implements Sql<Usuario> {
         Session session = HibernateUtil.getSession();
         assert session != null;
         List<Usuario> list = session
-                .createQuery("FROM Usuario", Usuario.class)
+                .createQuery("FROM usuario", Usuario.class)
                 .getResultList();
 
         session.close();
@@ -88,4 +89,3 @@ public class UsuarioHiberImpl implements Sql<Usuario> {
         return usuario;
     }
 }
- */
