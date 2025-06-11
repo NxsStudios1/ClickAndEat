@@ -28,7 +28,17 @@
         <mapping class = "org.clickandeat.modelo.entidades.usuario.Rol"/>
         <mapping class = "org.clickandeat.modelo.entidades.comentario.Comentario"/>
         <mapping class = "org.clickandeat.modelo.entidades.comentario.RespuestaComentario"/>
-
+        <mapping class = "org.clickandeat.modelo.entidades.inventario.CategoriaProducto"/>
+        <mapping class = "org.clickandeat.modelo.entidades.inventario.Ingrediente"/>
+        <mapping class = "org.clickandeat.modelo.entidades.inventario.Producto"/>
+        <mapping class = "org.clickandeat.modelo.entidades.inventario.ProductoIngrediente"/>
+        <mapping class = "org.clickandeat.modelo.entidades.pedido.DetallePedido"/>
+        <mapping class = "org.clickandeat.modelo.entidades.pedido.Pedido"/>
+        <mapping class = "org.clickandeat.modelo.entidades.pedido.Personalizacion"/>
+        <mapping class = "org.clickandeat.modelo.entidades.pedido.PersonalizacionPedido"/>
+        <mapping class = "org.clickandeat.modelo.entidades.promocion.DetallePromocionPedido"/>
+        <mapping class = "org.clickandeat.modelo.entidades.promocion.ProductoPromocion"/>
+        <mapping class = "org.clickandeat.modelo.entidades.promocion.Promocion"/
 
     </session-factory>
 </hibernate-configuration>
