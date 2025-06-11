@@ -6,7 +6,7 @@ import org.clickandeat.modelo.entidades.base.Entidad;
 import org.clickandeat.modelo.entidades.inventario.Producto;
 import org.clickandeat.modelo.entidades.promocion.DetallePromocionPedido;
 import org.clickandeat.modelo.entidades.promocion.Promocion;
-import org.clickandeat.modelo.entidades.pedido.PersonalizacionPedido;
+
 import java.math.BigDecimal;
 import java.util.List;
 

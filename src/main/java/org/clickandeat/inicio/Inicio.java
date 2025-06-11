@@ -1,7 +1,13 @@
-package org.clickandeat.inicio;
+/*package org.clickandeat.inicio;
+
+import org.clickandeat.vista.acciones.SeleccionEjecutable;
 
 public class Inicio {
 
-    // Aqui al correr el codigo iniciara el programa
-
+    public static void main(String[] args) {
+        System.out.println(" Ejecutando Click And Eat ... ");
+        SeleccionEjecutable.getInstance().run();
+        System.out.println(" Gracias por usar Click And Eat");
+    }
 }
+*/

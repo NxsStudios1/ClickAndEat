@@ -3,8 +3,6 @@ package org.clickandeat.modelo.entidades.inventario;
 import jakarta.persistence.*;
 import lombok.*;
 import org.clickandeat.modelo.entidades.base.Entidad;
-import org.clickandeat.modelo.entidades.inventario.Producto;
-import java.math.BigDecimal;
 
 @Data
 @Entity

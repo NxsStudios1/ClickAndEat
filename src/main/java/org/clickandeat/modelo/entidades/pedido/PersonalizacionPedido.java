@@ -3,7 +3,6 @@ package org.clickandeat.modelo.entidades.pedido;
 import jakarta.persistence.*;
 import lombok.*;
 import org.clickandeat.modelo.entidades.base.Entidad;
-import org.clickandeat.modelo.entidades.pedido.DetallePedido;
 
 @Data
 @Entity

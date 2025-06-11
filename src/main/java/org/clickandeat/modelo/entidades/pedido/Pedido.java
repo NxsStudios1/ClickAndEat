@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.clickandeat.modelo.entidades.base.Entidad;
 import org.clickandeat.modelo.entidades.usuario.Usuario;
-import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
