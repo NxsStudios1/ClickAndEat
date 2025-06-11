@@ -26,8 +26,9 @@
         <!-- Nos conectamos con las bases de datos sql , con nuestras entidades -->
         <mapping class = "org.clickandeat.modelo.entidades.usuario.Usuario"/>
         <mapping class = "org.clickandeat.modelo.entidades.usuario.Rol"/>
-        <mapping class = ""/>
-        <mapping class = ""/>
+        <mapping class = "org.clickandeat.modelo.entidades.comentario.Comentario"/>
+        <mapping class = "org.clickandeat.modelo.entidades.comentario.RespuestaComentario"/>
+
 
     </session-factory>
 </hibernate-configuration>

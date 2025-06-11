@@ -19,15 +19,15 @@ public class Rol extends Entidad {
     @Column(name = "idRol", nullable = false)
     private Integer idRol;
 
-    @Column(name = "nombre", nullable = false, unique = true)
-    private String nombre;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol", nullable = false, unique = true)
+    private RolEnum rol;
 
-    public RolEnum toEnum() {
-        return RolEnum.getId(this.idRol);
+    public Rol(RolEnum rol) {
+        this.rol = rol;
     }
 
-    public Rol(RolEnum rolEnum) {
-        this.idRol = rolEnum.getIdRol();
-        this.nombre = rolEnum.name();
+    public RolEnum toEnum() {
+        return this.rol;
     }
 }

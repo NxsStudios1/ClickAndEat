@@ -68,9 +68,10 @@ CREATE TABLE ingrediente (
 	idIngrediente INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(200) NOT NULL, 
+    cantidadPorcion DECIMAL (10,2) NOT NULL,
+    unidadMedida ENUM('gramos', 'litros', 'mililitros', 'unidades', 'kilogramos') NOT NULL,
     stockActual INT NOT NULL DEFAULT 0,
     stockMinimo INT NOT NULL DEFAULT 2,
-    unidadMedida ENUM('gramos', 'litros', 'mililitros', 'unidades', 'kilogramos') NOT NULL,
     precioUnitario DECIMAL(10,2) NOT NULL
 );
 
