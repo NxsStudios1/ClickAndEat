@@ -6,6 +6,7 @@ import org.clickandeat.modelo.entidades.base.Entidad;
 import org.clickandeat.modelo.entidades.usuario.Usuario;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -13,16 +14,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = ("respuestas"))
 @Table(name = "tbl_comentario")
 
 public class Comentario extends Entidad {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idComentario", nullable = false)
     private Integer idComentario;
 
-    @Column(name = "asunto", length = 100, nullable = false)
+    @Column(name = "asunto", length = 100)
     private String asunto;
 
     @Column(name = "contenido", length = 2000, nullable = false)
@@ -32,28 +34,32 @@ public class Comentario extends Entidad {
     private Integer calificacion;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "categoriaComentario", nullable = false)
-    private CategoriaComentario categoriaComentario = CategoriaComentario.GENERAL;
+    @Column(name = "categoriaComentario")
+    private CategoriaComentarioEnum categoriaComentario = CategoriaComentarioEnum.GENERAL;
 
-    public enum CategoriaComentario {
-        COMIDA, SERVICIO, AMBIENTE, TIEMPO_ESPERA, GENERAL
-    }
-
-    @Column(name = "fechaComentario", nullable = false)
+    @Column(name = "fechaComentario")
     private LocalDateTime fechaComentario = LocalDateTime.now();
 
-    @Column(name = "activo", nullable = false)
+    @Column(name = "activo")
     private Boolean activo = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCliente", nullable = false)
+    @JoinColumn(name = "idCliente")
     private Usuario cliente;
 
+    @OneToMany(mappedBy = "comentario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RespuestaComentario> respuestas;
+
     @PrePersist
-    @PreUpdate
-    private void validarCalificacion (){
-        if(calificacion != null && (calificacion < 1 || calificacion >5 )){
-            throw new IllegalArgumentException(" *** Calificacion debe de ser entre 1 y 5 ***");
+    protected void onCreate() {
+        if (fechaComentario == null) {
+            fechaComentario = LocalDateTime.now();
+        }
+        if (activo == null) {
+            activo = true;
+        }
+        if (categoriaComentario == null) {
+            categoriaComentario = CategoriaComentarioEnum.GENERAL;
         }
     }
 

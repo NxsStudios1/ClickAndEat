@@ -3,20 +3,18 @@ package org.clickandeat.modelo.entidades.inventario;
 import jakarta.persistence.*;
 import lombok.*;
 import org.clickandeat.modelo.entidades.base.Entidad;
-import org.clickandeat.modelo.entidades.usuario.Usuario;
-
-import java.time.LocalDateTime;
-
+import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-@Table(name = "tbl_ingrediente")
-
+@ToString(callSuper = true, exclude = {"productosIngredientes"})
+@Table(name = "ingrediente")
 public class Ingrediente extends Entidad {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idIngrediente", nullable = false)
@@ -33,47 +31,17 @@ public class Ingrediente extends Entidad {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "unidadMedida", nullable = false)
-    private UnidadMedida unidadMedida;
+    private UnidadMedidaEnum unidadMedida;
 
-    public enum UnidadMedida {
-        GRAMOS("gramos", "g"),
-        LITROS("litros", "L"),
-        MILILITROS("mililitros", "mL"),
-        UNIDADES("unidades", "unidad"),
-        KILOGRAMOS("kilogramos", "kg");
+    @Column(name = "stockActual", nullable = false)
+    private Integer stockActual = 0;
 
-        private final String nombre;
-        private final String abreviacion;
+    @Column(name = "stockMinimo", nullable = false)
+    private Integer stockMinimo = 2;
 
-        UnidadMedida(String nombre, String abreviacion) {
-            this.nombre = nombre;
-            this.abreviacion = abreviacion;
-        }
+    @Column(name = "precioUnitario", nullable = false)
+    private Double precioUnitario;
 
-        public String getNombre() {
-            return nombre;
-        }
-
-        public String getAbreviacion() {
-            return abreviacion;
-        }
-
-        @Override
-        public String toString() {
-            return nombre;
-        }
-
-        @Column(name = "stockActual", nullable = false)
-        private Double stockActual = 0.0;
-
-        @Column(name = "stockMinimo", nullable = false)
-        private Double stockMinimo = 2.0;
-
-        @Column(name = "precioUnitario", nullable = false)
-        private Double precioUnitario;
-    }
+    @OneToMany(mappedBy = "ingrediente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductoIngrediente> productosIngredientes;
 }
-
-
-
-

@@ -23,23 +23,21 @@ public class RespuestaComentario extends Entidad {
     @Column(name = "contenido", length = 2000, nullable = false)
     private String contenido;
 
-    @Column(name = "fechaRespuesta", nullable = false)
+    @Column(name = "fechaRespuesta")
     private LocalDateTime fechaRespuesta = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idComentario", nullable = false)
+    @JoinColumn(name = "idComentario")
     private Comentario comentario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idAdministrador", nullable = false)
+    @JoinColumn(name = "idAdministrador")
     private Usuario administrador;
 
-    // Método para validar que el usuario sea administrador
     @PrePersist
-    @PreUpdate
-    private void validarAdministrador() {
-        if (administrador != null && !administrador.isAdministrador()) {
-            throw new IllegalArgumentException(" *** Solo los administradores pueden responder comentarios *** ");
+    protected void onCreate() {
+        if (fechaRespuesta == null) {
+            fechaRespuesta = LocalDateTime.now();
         }
     }
 }
