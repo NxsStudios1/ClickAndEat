@@ -34,10 +34,10 @@ public class Ingrediente extends Entidad {
     private UnidadMedidaEnum unidadMedida;
 
     @Column(name = "stockActual", nullable = false)
-    private Integer stockActual = 0;
+    private Double stockActual;
 
     @Column(name = "stockMinimo", nullable = false)
-    private Integer stockMinimo = 2;
+    private Double stockMinimo;
 
     @Column(name = "precioUnitario", nullable = false)
     private Double precioUnitario;

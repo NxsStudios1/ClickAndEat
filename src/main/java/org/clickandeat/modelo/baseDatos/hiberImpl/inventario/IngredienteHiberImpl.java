@@ -156,58 +156,72 @@ public class IngredienteHiberImpl implements HiberInterface<Ingrediente>
         return list;
     }
 
+
     /**
      * Actualiza el stock de un ingrediente
      */
-    public boolean actualizarStock(int ingredienteId, int nuevasCantidad)
-    {
+    public boolean actualizarStock(int ingredienteId, double nuevaCantidad) { // Cambiar int por double
         Session session = HibernateUtil.getSession();
         assert session != null;
         session.beginTransaction();
 
-        Ingrediente ingrediente = session.get(Ingrediente.class, ingredienteId);
-        if (ingrediente != null) {
-            ingrediente.setStockActual(nuevasCantidad);
-            session.merge(ingrediente);
-            session.getTransaction().commit();
-            session.close();
-            return true;
-        }
+        try {
+            Ingrediente ingrediente = session.get(Ingrediente.class, ingredienteId);
+            if (ingrediente != null) {
+                ingrediente.setStockActual(nuevaCantidad);
+                session.merge(ingrediente);
+                session.getTransaction().commit();
+                session.close();
+                return true;
+            }
 
-        session.getTransaction().rollback();
-        session.close();
-        return false;
+            session.getTransaction().rollback();
+            session.close();
+            return false;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+            return false;
+        }
     }
 
     /**
      * Reduce el stock de un ingrediente (para cuando se hace un pedido)
      */
-    public boolean reducirStock(int ingredienteId, int cantidadAReducir)
-    {
+
+    public boolean reducirStock(int ingredienteId, int cantidadAReducir) {
         Session session = HibernateUtil.getSession();
         assert session != null;
         session.beginTransaction();
 
-        Ingrediente ingrediente = session.get(Ingrediente.class, ingredienteId);
-        if (ingrediente != null && ingrediente.getStockActual() >= cantidadAReducir) {
-            ingrediente.setStockActual(ingrediente.getStockActual() - cantidadAReducir);
-            session.merge(ingrediente);
-            session.getTransaction().commit();
-            session.close();
-            return true;
-        }
+        try {
+            Ingrediente ingrediente = session.get(Ingrediente.class, ingredienteId);
+            if (ingrediente != null && ingrediente.getStockActual() >= cantidadAReducir) {
+                double nuevoStock = ingrediente.getStockActual() - cantidadAReducir;
+                ingrediente.setStockActual( nuevoStock);
+                session.merge(ingrediente);
+                session.getTransaction().commit();
+                session.close();
+                return true;
+            }
 
-        session.getTransaction().rollback();
-        session.close();
-        return false;
+            session.getTransaction().rollback();
+            session.close();
+            return false;
+
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+            return false;
+        }
     }
 
     /**
      * Verifica si hay stock suficiente para un ingrediente
+     * VERSIÓN MEJORADA con parámetro double
      */
 
-    public boolean hayStockSuficiente(int ingredienteId, int cantidadRequerida)
-    {
+    public boolean hayStockSuficiente(int ingredienteId, double cantidadRequerida) { // Cambiar int por double
         Session session = HibernateUtil.getSession();
         assert session != null;
 
@@ -216,4 +230,5 @@ public class IngredienteHiberImpl implements HiberInterface<Ingrediente>
 
         return ingrediente != null && ingrediente.getStockActual() >= cantidadRequerida;
     }
+
 }

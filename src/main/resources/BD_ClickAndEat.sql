@@ -70,8 +70,8 @@ CREATE TABLE ingrediente (
     descripcion VARCHAR(200) NOT NULL, 
     cantidadPorcion DECIMAL (10,2) NOT NULL,
     unidadMedida ENUM('gramos', 'litros', 'mililitros', 'unidades', 'kilogramos') NOT NULL,
-    stockActual INT NOT NULL DEFAULT 0,
-    stockMinimo INT NOT NULL DEFAULT 2,
+    stockActual DOUBLE NOT NULL DEFAULT,
+    stockMinimo DOUBLE NOT NULL DEFAULT,
     precioUnitario DECIMAL(10,2) NOT NULL
 );
 

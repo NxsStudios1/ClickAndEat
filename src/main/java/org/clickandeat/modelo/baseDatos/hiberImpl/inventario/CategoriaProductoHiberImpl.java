@@ -29,7 +29,7 @@ public class CategoriaProductoHiberImpl implements HiberInterface<CategoriaProdu
         Session session = HibernateUtil.getSession();
         assert session != null;
         List<CategoriaProducto> list = session
-                .createQuery("FROM categoriaProducto ORDER BY nombre", CategoriaProducto.class)
+                .createQuery("FROM CategoriaProducto ORDER BY nombre", CategoriaProducto.class)
                 .getResultList();
 
         session.close();

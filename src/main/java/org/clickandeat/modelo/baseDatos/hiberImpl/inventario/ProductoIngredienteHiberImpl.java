@@ -139,7 +139,7 @@ public class ProductoIngredienteHiberImpl implements HiberInterface<ProductoIngr
         // Verificar si cada ingrediente tiene suficiente stock
         for (ProductoIngrediente pi : ingredientesRequeridos) {
             double cantidadRequerida = pi.getCantidadNecesaria() * cantidadProducto;
-            if (pi.getIngrediente().getStock() < cantidadRequerida) {
+            if (pi.getIngrediente().getStockActual() < cantidadRequerida) {
                 return false; // No hay suficiente stock
             }
         }
