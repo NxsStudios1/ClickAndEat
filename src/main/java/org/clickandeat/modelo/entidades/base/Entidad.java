@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public abstract class Entidad {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 

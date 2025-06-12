@@ -1,8 +1,8 @@
 package org.clickandeat.modelo.entidades.sesion;
 
 public enum RolEnum {
-    ADMINISTRADOR(1),
-    CLIENTE(2);
+    CLIENTE(1),
+    ADMINISTRADOR(2);
 
     private final int idRol;
 

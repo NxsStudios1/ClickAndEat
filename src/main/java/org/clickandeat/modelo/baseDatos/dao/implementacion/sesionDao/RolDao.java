@@ -6,6 +6,8 @@ import org.clickandeat.modelo.entidades.sesion.Rol;
 import org.clickandeat.modelo.entidades.sesion.RolEnum;
 import org.hibernate.Session;
 
+import java.util.List;
+
 public class RolDao extends DaoImpl<Rol> {
     public RolDao(){
         super(Rol.class);
@@ -14,9 +16,17 @@ public class RolDao extends DaoImpl<Rol> {
     public Rol findByTipo(RolEnum tipo) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery(
-                            "FROM tbl_rol WHERE tipo = :tipo", Rol.class)
+                            "FROM Rol WHERE tipo = :tipo", Rol.class)
                     .setParameter("tipo", tipo)
                     .uniqueResult();
+        }
+    }
+
+    public List<Rol> findAllConUsuarios() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT DISTINCT r FROM Rol r LEFT JOIN FETCH r.usuarios", Rol.class)
+                    .getResultList();
         }
     }
 

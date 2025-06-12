@@ -1,21 +1,22 @@
 package org.clickandeat.modelo.entidades.comentario;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.clickandeat.modelo.entidades.base.Entidad;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "tbl_comentario")
-
 public class Comentario extends Entidad {
 
     @Column(nullable = false, length = 100)
@@ -41,4 +42,13 @@ public class Comentario extends Entidad {
     @OneToMany(mappedBy = "comentario", cascade = CascadeType.ALL)
     private List<RespuestaComentario> respuestas;
 
+    @Override
+    public String toString() {
+        return  "📝 Asunto: " + asunto +
+                "\n⭐ Calificación: " + calificacion +
+                "\n🏷️ Categoría: " + categoria +
+                "\n📅 Fecha: " + (fechaComentario != null ? fechaComentario.toString().replace('T', ' ') : "Sin fecha") +
+                "\n👤 Cliente: " + cliente.getNombre() +
+                "\n";
+    }
 }

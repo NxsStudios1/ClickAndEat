@@ -1,19 +1,20 @@
 package org.clickandeat.modelo.entidades.sesion;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.clickandeat.modelo.entidades.base.Entidad;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tbl_rol")
-
 public class Rol extends Entidad {
 
     @Enumerated(EnumType.STRING)
@@ -23,5 +24,8 @@ public class Rol extends Entidad {
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
 
+    @Override
+    public String toString() {
+        return tipo != null ? tipo.name() : "Rol";
+    }
 }
-

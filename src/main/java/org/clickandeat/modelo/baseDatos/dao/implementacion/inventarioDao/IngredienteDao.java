@@ -7,8 +7,7 @@ public class IngredienteDao extends DaoImpl<Ingrediente> {
     public IngredienteDao(){
         super(Ingrediente.class);
     }
-    // Puedes agregar métodos personalizados aquí, por ejemplo:
-    // public Usuario buscarPorTelefono(String telefono) { ... }
+
 
 
 }

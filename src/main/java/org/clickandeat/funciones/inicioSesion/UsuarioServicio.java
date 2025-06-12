@@ -7,25 +7,24 @@ import org.clickandeat.modelo.entidades.sesion.RolEnum;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
 
 public class UsuarioServicio {
-    private final UsuarioDao usuarioDao = new UsuarioDao();
-    private final RolDao rolDao = new RolDao();
+    private final UsuarioDao usuarioDao;
+    private final RolDao rolDao;
 
-    // Registro de usuario (de sesión)
+    public UsuarioServicio(RolDao rolDao, UsuarioDao usuarioDao) {
+        this.rolDao = rolDao;
+        this.usuarioDao = usuarioDao;
+    }
+
     public boolean registrarUsuario(String nombre, String telefono, String contrasena, RolEnum tipoRol) {
-
-        // Verifica si ya existe el usuario por teléfono
         if (usuarioDao.findByTelefono(telefono) != null) {
             return false; // Usuario ya existe
         }
-        // Busca el rol, si no existe lo crea
         Rol rol = rolDao.findByTipo(tipoRol);
         if (rol == null) {
             rol = new Rol();
             rol.setTipo(tipoRol);
             rolDao.guardar(rol);
         }
-
-        // Crea y guarda el usuario
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setTelefono(telefono);
@@ -35,9 +34,11 @@ public class UsuarioServicio {
         return usuarioDao.guardar(usuario);
     }
 
-    // Inicio de sesión
     public Usuario iniciarSesion(String telefono, String contrasena) {
-        return usuarioDao.findByTelefonoYContrasena(telefono, contrasena);
+        Usuario usuario = usuarioDao.findByTelefono(telefono);
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return usuario;
+        }
+        return null;
     }
-
 }

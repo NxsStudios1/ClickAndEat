@@ -73,7 +73,7 @@ CREATE TABLE tbl_ingrediente (
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(200) NOT NULL, 
     cantidadPorcion DOUBLE NOT NULL,
-    unidadMedida ENUM('gramos', 'litros', 'mililitros', 'unidades', 'kilogramos') NOT NULL,
+    unidadMedida ENUM('GRAMOS', 'LITROS', 'MILILITROS', 'UNIDADES', 'KILOGRAMOS') NOT NULL,
     stockActual DOUBLE NOT NULL,
     precioUnitario DOUBLE NOT NULL
 );

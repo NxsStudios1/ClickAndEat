@@ -12,10 +12,14 @@ public class UsuarioDao extends DaoImpl<Usuario> {
 
     public Usuario findByTelefono(String telefono) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery(
+            Usuario usuario = session.createQuery(
                             "FROM Usuario WHERE telefono = :tel", Usuario.class)
                     .setParameter("tel", telefono)
                     .uniqueResult();
+            if (usuario != null && usuario.getRol() != null) {
+                usuario.getRol().getTipo();
+            }
+            return usuario;
         }
     }
 
