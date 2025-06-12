@@ -1,4 +1,4 @@
-package org.clickandeat.vista.acciones;
+/*package org.clickandeat.vista.acciones;
 
 import lombok.NoArgsConstructor;
 
@@ -44,4 +44,4 @@ public class MenuPrincipalClient extends ManejoMenus{
 
         }
     }
-}
+}*/

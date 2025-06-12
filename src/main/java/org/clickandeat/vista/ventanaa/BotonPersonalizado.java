@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana;
+/*package org.clickandeat.vista.ventanaa;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,4 +60,4 @@ public class BotonPersonalizado extends JButton {
     public void paintBorder(Graphics g) {
         // Lo pintamos manualmente arriba
     }
-}
+}*/

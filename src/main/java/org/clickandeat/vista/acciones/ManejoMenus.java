@@ -1,4 +1,4 @@
-package org.clickandeat.vista.acciones;
+/*package org.clickandeat.vista.acciones;
 
 import org.clickandeat.util.ReadUtil;
 
@@ -48,3 +48,4 @@ public abstract class ManejoMenus implements Ejecutable
         this.flag = flag;
     }
 }
+*/

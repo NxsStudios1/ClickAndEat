@@ -30,7 +30,7 @@ CREATE TABLE tbl_usuario(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
-    contraseña VARCHAR(255) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
     idRol INT NOT NULL,
     FOREIGN KEY (idRol) REFERENCES tbl_rol(id)
 );

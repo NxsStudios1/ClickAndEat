@@ -1,7 +1,7 @@
-package org.clickandeat.vista.acciones;
+/*package org.clickandeat.vista.acciones;
 
 import lombok.NoArgsConstructor;
-import org.clickandeat.vista.ventana.VentanaPrincipal;
+import org.clickandeat.vista.ventanaa.VentanaPrincipal;
 
 @NoArgsConstructor
 public class SeleccionEjecutable extends ManejoMenus
@@ -63,4 +63,4 @@ public class SeleccionEjecutable extends ManejoMenus
             ejecutable.run();
         }
     }
-}
+}*/

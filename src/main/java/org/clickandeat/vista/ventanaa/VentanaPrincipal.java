@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana;
+/*package org.clickandeat.vista.ventanaa;
 
 import org.clickandeat.vista.acciones.Ejecutable;
 
@@ -75,4 +75,4 @@ public class VentanaPrincipal implements Ejecutable {
     public JFrame getFrame() {
         return frame;
     }
-}
+}*/

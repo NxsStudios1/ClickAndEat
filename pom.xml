@@ -21,6 +21,7 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.0.33</version>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -71,8 +72,7 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version> <configuration>
-                <mainClass>org.imouse.vitacorpus.ui.Ventanas.VentanaPrincipalFX</mainClass>  </configuration>
+                <version>0.0.8</version>
             </plugin>
         </plugins>
     </build>

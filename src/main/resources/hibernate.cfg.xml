@@ -23,13 +23,13 @@
         <property name="hbm2ddl.auto">none</property>
         <property name="hibernate.transform_hbm_xml.enabled">true</property>
 
-        <mapping class="org.clickandeat.modelo.entidades.usuario.Usuario"/>
-        <mapping class="org.clickandeat.modelo.entidades.usuario.Rol"/>
+        <mapping class="org.clickandeat.modelo.entidades.sesion.Usuario"/>
+        <mapping class="org.clickandeat.modelo.entidades.sesion.Rol"/>
         <mapping class="org.clickandeat.modelo.entidades.comentario.Comentario"/>
         <mapping class="org.clickandeat.modelo.entidades.comentario.RespuestaComentario"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.Ingrediente"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.CategoriaProducto"/>
-        <mapping class="org.clickandeat.modelo.entidades.inventario.Productoc"/>
+        <mapping class="org.clickandeat.modelo.entidades.inventario.Producto"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.ProductoIngrediente"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.Promocion"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.PromocionProducto"/>
