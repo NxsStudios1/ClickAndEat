@@ -18,16 +18,5 @@ public abstract class Entidad
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-    protected static Entidad buscarElemento(UsuarioHiberImpl<? extends Entidad> DaoImpl, Integer id){
-        Entidad entidad = null;
-        entidad = DaoImpl.findById(id);
-
-        if(entidad == null){
-            System.out.println("Error | Elemento no encontrado");
-            return null;
-        } else {
-            return entidad;
-        }
-    }
 }
 

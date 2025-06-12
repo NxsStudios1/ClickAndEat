@@ -1,4 +1,4 @@
-/*package org.clickandeat.inicio;
+package org.clickandeat.inicio;
 
 import org.clickandeat.vista.acciones.SeleccionEjecutable;
 
@@ -10,4 +10,3 @@ public class Inicio {
         System.out.println(" Gracias por usar Click And Eat");
     }
 }
-*/

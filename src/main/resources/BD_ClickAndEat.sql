@@ -4,94 +4,95 @@
 
 # Equipo 1
 
-CREATE DATABASE clickAndEat;
-USE clickAndEat;
-SHOW TABLES;
+CREATE DATABASE IF NOT EXISTS clickandeat;
+
+USE clickandeat;
+
+
+# ----------------------------
+# CREACIÓN DE TABLAS
+# ----------------------------
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_rol`
+-- Table `tbl_rol`
 -- -----------------------------------------------------
 
-CREATE TABLE rol (
-	idRol INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	rol ENUM('ADMINISTRADOR','CLIENTE') NOT NULL UNIQUE
+CREATE TABLE tbl_rol (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	tipo ENUM('ADMINISTRADOR','CLIENTE') NOT NULL UNIQUE
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_usuarios`
+-- Table `tbl_usuario`
 -- -----------------------------------------------------
 
-CREATE TABLE usuario(
-	idUsuario INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
+CREATE TABLE tbl_usuario(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
     contraseña VARCHAR(255) NOT NULL,
     idRol INT NOT NULL,
-    FOREIGN KEY (idRol) REFERENCES rol(idRol)
+    FOREIGN KEY (idRol) REFERENCES tbl_rol(id)
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_comentarios`
+-- Table `tbl_comentario`
 -- -----------------------------------------------------
 
-CREATE TABLE comentario(
-	idComentario INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    asunto VARCHAR(100),
+CREATE TABLE tbl_comentario(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    asunto VARCHAR(100) NOT NULL,
     contenido VARCHAR (2000) NOT NULL,
     calificacion INT CHECK (calificacion >= 1 AND calificacion <= 5) NOT NULL,
-    categoriaComentario ENUM('COMIDA', 'SERVICIO', 'AMBIENTE', 'TIEMPO_ESPERA', 'GENERAL') DEFAULT 'GENERAL',
+    categoria ENUM('COMIDA', 'SERVICIO', 'AMBIENTE', 'TIEMPO_ESPERA', 'GENERAL'),
     fechaComentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    activo BOOLEAN DEFAULT TRUE,
     idCliente INT,
-    FOREIGN KEY (idCliente) REFERENCES usuario(idUsuario)
+    FOREIGN KEY (idCliente) REFERENCES tbl_usuario(id)
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_respuestaComentarios`
+-- Table `tbl_respuestaComentario`
 -- -----------------------------------------------------
 
-CREATE TABLE respuestaComentario (
-	idRespuestaComentario INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CREATE TABLE tbl_respuestaComentario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
     contenido VARCHAR (2000) NOT NULL,
     fechaRespuesta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    idComentario INT,
-    idAdministrador INT,
-    FOREIGN KEY (idComentario) REFERENCES comentario(idComentario) ON DELETE CASCADE,
-    FOREIGN KEY (idAdministrador) REFERENCES usuario(idUsuario)
+    idComentario INT NOT NULL,
+    idAdministrador INT NOT NULL,
+    FOREIGN KEY (idComentario) REFERENCES tbl_comentario(id) ON DELETE CASCADE,
+    FOREIGN KEY (idAdministrador) REFERENCES tbl_usuario(id)
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_ingredientes`
+-- Table `tbl_ingrediente`
 -- -----------------------------------------------------
 
-CREATE TABLE ingrediente (
-	idIngrediente INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CREATE TABLE tbl_ingrediente (
+	id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(200) NOT NULL, 
-    cantidadPorcion DECIMAL (10,2) NOT NULL,
+    cantidadPorcion DOUBLE NOT NULL,
     unidadMedida ENUM('gramos', 'litros', 'mililitros', 'unidades', 'kilogramos') NOT NULL,
-    stockActual DOUBLE NOT NULL DEFAULT,
-    stockMinimo DOUBLE NOT NULL DEFAULT,
-    precioUnitario DECIMAL(10,2) NOT NULL
+    stockActual DOUBLE NOT NULL,
+    precioUnitario DOUBLE NOT NULL
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_categoriaProducto`
+-- Table `tbl_categoriaProducto`
 -- -----------------------------------------------------
 
-CREATE TABLE categoriaProducto(
-	idCategoria INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(50) NOT NULL,
-    descripcion VARCHAR(200),
-    activo BOOLEAN DEFAULT TRUE
+CREATE TABLE tbl_categoriaProducto(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_producto`
+-- Table `tbl_producto`
 -- -----------------------------------------------------
 
-CREATE TABLE producto( 
-	idProducto INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CREATE TABLE tbl_producto( 
+	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(300) NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
@@ -99,126 +100,81 @@ CREATE TABLE producto(
     imagenUrl VARCHAR(500),
     fechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idCategoria INT,
-    FOREIGN KEY (idCategoria) REFERENCES categoriaProducto(idCategoria)
+    FOREIGN KEY (idCategoria) REFERENCES tbl_categoriaProducto(id)
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_productoIngrediente`
+-- Table `tbl_productoIngrediente`
 -- -----------------------------------------------------
 
-CREATE TABLE productoIngrediente(
-    idProductoIngrediente INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE tbl_productoIngrediente(
+    id INT PRIMARY KEY AUTO_INCREMENT,
     idProducto INT NOT NULL,
     idIngrediente INT NOT NULL,
-    cantidadNecesaria DECIMAL(8,2) NOT NULL,
+    cantidadNecesaria DOUBLE NOT NULL,
     UNIQUE KEY productoIngrediente (idProducto, idIngrediente),
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto) ON DELETE CASCADE,
-    FOREIGN KEY (idIngrediente) REFERENCES ingrediente(idIngrediente)
+    FOREIGN KEY (idProducto) REFERENCES tbl_producto(id) ON DELETE CASCADE,
+    FOREIGN KEY (idIngrediente) REFERENCES tbl_ingrediente(id)
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_pedido`
+-- Table `tbl_pedido`
 -- -----------------------------------------------------
 
-CREATE TABLE pedido (
-    idPedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CREATE TABLE tbl_pedido (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     numeroTicket VARCHAR(20) UNIQUE NOT NULL,
     estado ENUM('PENDIENTE', 'EN_PROCESO', 'TERMINADO', 'PAGADO', 'CANCELADO') DEFAULT 'PENDIENTE',
-    total DECIMAL(10,2) NOT NULL,
+    total DOUBLE NOT NULL,
     fechaPedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     observaciones VARCHAR(500),
-    metodoPagoPrevisto ENUM('EFECTIVO', 'TARJETA') DEFAULT 'EFECTIVO',
     idCliente INT,
-    FOREIGN KEY (idCliente) REFERENCES usuario(idUsuario)
+    FOREIGN KEY (idCliente) REFERENCES tbl_usuario(id)
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_personalizacion`
+-- Table `tbl_promocion`
 -- -----------------------------------------------------
-CREATE TABLE personalizacion (
-    idPersonalizacion INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(50) NOT NULL, -- Mostaza, Catsup, Sin cebolla, etc.
-    tipo VARCHAR(30) NOT NULL, -- SALSA, EXTRA, SIN_INGREDIENTE
-    precio_adicional DECIMAL(10,2) DEFAULT 0.00
-);
-
--- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_promocion`
--- -----------------------------------------------------
-CREATE TABLE promocion (
-    idPromocion INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CREATE TABLE tbl_promocion (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(300),
-    descuento_porcentaje DECIMAL(5,2), -- Para descuentos en porcentaje
-    fechaInicio DATE NOT NULL,
+	fechaInicio DATE NOT NULL,
     fechaFin DATE NOT NULL,
+    precioTotalConDescuento DOUBLE NOT NULL,
     activo BOOLEAN DEFAULT TRUE
 );
 
 -- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_productoPromocion`
+-- Table `tbl_productoPromocion`
 -- -----------------------------------------------------
 
-CREATE TABLE productoPromocion(
-    idProductoPromocion INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE tbl_promocionProducto(
+    id INT PRIMARY KEY AUTO_INCREMENT,
     idProducto INT NOT NULL,
     idPromocion INT NOT NULL,
+    cantidadProducto INT NOT NULL,
     UNIQUE KEY productoPromocion (idProducto, idPromocion),
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto) ON DELETE CASCADE,
-    FOREIGN KEY (idPromocion) REFERENCES promocion(idPromocion) ON DELETE CASCADE
+    FOREIGN KEY (idPromocion) REFERENCES tbl_promocion(id) ON DELETE CASCADE,
+    FOREIGN KEY (idProducto) REFERENCES tbl_producto(id)
 );
 
 -----------------------------------------------------
--- Table `clickAndEat`.`tbl_detallePedido`
+-- Table tbl_detallePedido`
 -- --------------------------------------------------
 
-CREATE TABLE detallePedido (
-    idDetallePedido INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE tbl_detallePedido (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipoItem ENUM('PRODUCTO', 'PROMOCION') NOT NULL,
     cantidad INT NOT NULL DEFAULT 1,
-    precioUnitario DECIMAL(10,2) NOT NULL,
-    subtotal DECIMAL(10,2) NOT NULL,
-    tipoItem ENUM ('PRODUCTO','PROMOCION') NOT NULL,
-    idPedido INT,
-    idProducto INT,
-    idPromocion INT,
-    CHECK ((idProducto IS NOT NULL AND idPromocion IS NULL AND tipoItem= 'PRODUCTO') OR 
-           (idProducto IS NULL AND idPromocion IS NOT NULL AND tipoItem= 'PROMOCION')),
-    FOREIGN KEY (idPedido) REFERENCES pedido(idPedido) ON DELETE CASCADE,
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
-    FOREIGN KEY (idPromocion) REFERENCES promocion(idPromocion)
+    precioUnitario DOUBLE NOT NULL,
+    subtotal DOUBLE NOT NULL,
+    idProducto INT NULL,
+    idPromocion INT NULL,
+    idPedido INT NOT NULL,
+    FOREIGN KEY (idPedido) REFERENCES tbl_pedido(id) ON DELETE CASCADE,
+    FOREIGN KEY (idProducto) REFERENCES tbl_producto(id),
+    FOREIGN KEY (idPromocion) REFERENCES tbl_promocion(id)
 );
-
------------------------------------------------------
--- Table `clickAndEat`.`tbl_detallePromocionPedido`
--- --------------------------------------------------
-CREATE TABLE detallePromocionPedido (
-    idDetallePromocionPedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    idDetallePedido INT NOT NULL, -- Referencia al detalle que es promoción
-    idProducto INT NOT NULL,
-    cantidad INT NOT NULL DEFAULT 1,
-    FOREIGN KEY (idDetallePedido) REFERENCES detallePedido(idDetallePedido ) ON DELETE CASCADE,
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
-    INDEX detallePromocion (idDetallePedido)
-);
-
-
-
--- -----------------------------------------------------
--- Table `clickAndEat`.`tbl_personalizacionPedido`
--- -------------------------------------------------------
-CREATE TABLE personalizacionPedido (
-    idPersonalizacionPedido INT PRIMARY KEY AUTO_INCREMENT,
-    idDetallePedido INT,
-    idPersonalizacion INT,
-    FOREIGN KEY (idDetallePedido) REFERENCES detallePedido(idDetallePedido) ON DELETE CASCADE,
-    FOREIGN KEY (idPersonalizacion) REFERENCES personalizacion(idPersonalizacion)
-);
-
-
-
-
-
-
-
 
 

@@ -14,10 +14,6 @@ import org.clickandeat.modelo.entidades.base.Entidad;
 @Table(name = "tbl_usuario")
 
 public class Usuario extends Entidad {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUsuario", nullable = false)
-    private Integer idUsuario;
 
     @Column(name = "nombre", length = 100, nullable = false)
     private String nombre;

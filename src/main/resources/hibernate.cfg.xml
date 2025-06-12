@@ -6,10 +6,9 @@
     <session-factory>
 
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/clickandeat</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/clickAndEat</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">n0m3l0</property>
-        <property name="hibernate.default_schema">clickandeat</property>
         <!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property> -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <!-- JDBC connection pool (use the built-in) -->
@@ -38,7 +37,7 @@
         <mapping class = "org.clickandeat.modelo.entidades.pedido.PersonalizacionPedido"/>
         <mapping class = "org.clickandeat.modelo.entidades.promocion.DetallePromocionPedido"/>
         <mapping class = "org.clickandeat.modelo.entidades.promocion.ProductoPromocion"/>
-        <mapping class = "org.clickandeat.modelo.entidades.promocion.Promocion"/
+        <mapping class = "org.clickandeat.modelo.entidades.promocion.Promocion"/>
 
     </session-factory>
 </hibernate-configuration>

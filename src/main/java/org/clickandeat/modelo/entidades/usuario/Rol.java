@@ -6,18 +6,18 @@ import lombok.*;
 import org.clickandeat.modelo.entidades.base.Entidad;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
 @Table(name = "TBL_ROL")
-
 public class Rol extends Entidad {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idRol", nullable = false)
-    private Integer idRol;
+
+    // ❌ Quita estas líneas:
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @Column(name = "idRol", nullable = false)
+    // private Integer idRol;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false, unique = true)
