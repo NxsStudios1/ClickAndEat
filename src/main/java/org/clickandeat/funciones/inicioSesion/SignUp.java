@@ -3,9 +3,8 @@ package org.clickandeat.funciones.inicioSesion;
 import lombok.NoArgsConstructor;
 import org.clickandeat.modelo.entidades.usuario.Usuario;
 import org.clickandeat.modelo.entidades.usuario.RolEnum;
-import org.clickandeat.modelo.baseDatos.hiberImpl.UsuarioHiberImpl;
+import org.clickandeat.modelo.baseDatos.hiberImpl.usuario.UsuarioHiberImpl;
 import org.clickandeat.util.ReadUtil;
-import org.clickandeat.vista.acciones.Ejecutable;
 
 import java.util.List;
 

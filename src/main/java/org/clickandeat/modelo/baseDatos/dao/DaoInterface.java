@@ -1,10 +1,10 @@
-package org.clickandeat.modelo.baseDatos;
+package org.clickandeat.modelo.baseDatos.dao;
 
 import org.clickandeat.modelo.entidades.base.Entidad;
 
 import java.util.List;
 
-public interface HiberInterface<T extends Entidad>{
+public interface DaoInterface<T extends Entidad>{
     List<T> findAll( );
     boolean guardar( T t );
     boolean actualizar( T t );

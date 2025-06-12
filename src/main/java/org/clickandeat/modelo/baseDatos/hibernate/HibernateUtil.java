@@ -1,4 +1,4 @@
-package org.clickandeat.util;
+package org.clickandeat.modelo.baseDatos.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

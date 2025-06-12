@@ -6,9 +6,10 @@
     <session-factory>
 
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/clickAndEat</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/clickandeat</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">n0m3l0</property>
+        <property name="hibernate.default_schema">clickandeat</property>
         <!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property> -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <!-- JDBC connection pool (use the built-in) -->
@@ -22,22 +23,18 @@
         <property name="hbm2ddl.auto">none</property>
         <property name="hibernate.transform_hbm_xml.enabled">true</property>
 
-        <!-- Nos conectamos con las bases de datos sql , con nuestras entidades -->
-        <mapping class = "org.clickandeat.modelo.entidades.usuario.Usuario"/>
-        <mapping class = "org.clickandeat.modelo.entidades.usuario.Rol"/>
-        <mapping class = "org.clickandeat.modelo.entidades.comentario.Comentario"/>
-        <mapping class = "org.clickandeat.modelo.entidades.comentario.RespuestaComentario"/>
-        <mapping class = "org.clickandeat.modelo.entidades.inventario.CategoriaProducto"/>
-        <mapping class = "org.clickandeat.modelo.entidades.inventario.Ingrediente"/>
-        <mapping class = "org.clickandeat.modelo.entidades.inventario.Producto"/>
-        <mapping class = "org.clickandeat.modelo.entidades.inventario.ProductoIngrediente"/>
-        <mapping class = "org.clickandeat.modelo.entidades.pedido.DetallePedido"/>
-        <mapping class = "org.clickandeat.modelo.entidades.pedido.Pedido"/>
-        <mapping class = "org.clickandeat.modelo.entidades.pedido.Personalizacion"/>
-        <mapping class = "org.clickandeat.modelo.entidades.pedido.PersonalizacionPedido"/>
-        <mapping class = "org.clickandeat.modelo.entidades.promocion.DetallePromocionPedido"/>
-        <mapping class = "org.clickandeat.modelo.entidades.promocion.ProductoPromocion"/>
-        <mapping class = "org.clickandeat.modelo.entidades.promocion.Promocion"/>
+        <mapping class="org.clickandeat.modelo.entidades.usuario.Usuario"/>
+        <mapping class="org.clickandeat.modelo.entidades.usuario.Rol"/>
+        <mapping class="org.clickandeat.modelo.entidades.comentario.Comentario"/>
+        <mapping class="org.clickandeat.modelo.entidades.comentario.RespuestaComentario"/>
+        <mapping class="org.clickandeat.modelo.entidades.inventario.Ingrediente"/>
+        <mapping class="org.clickandeat.modelo.entidades.inventario.CategoriaProducto"/>
+        <mapping class="org.clickandeat.modelo.entidades.inventario.Productoc"/>
+        <mapping class="org.clickandeat.modelo.entidades.inventario.ProductoIngrediente"/>
+        <mapping class="org.clickandeat.modelo.entidades.inventario.Promocion"/>
+        <mapping class="org.clickandeat.modelo.entidades.inventario.PromocionProducto"/>
+        <mapping class="org.clickandeat.modelo.entidades.pedido.Pedido"/>
+        <mapping class="org.clickandeat.modelo.entidades.pedido.DetallePedido"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -7,7 +7,7 @@
 CREATE DATABASE IF NOT EXISTS clickandeat;
 
 USE clickandeat;
-
+SHOW TABLES;
 
 # ----------------------------
 # CREACIÓN DE TABLAS
@@ -95,10 +95,9 @@ CREATE TABLE tbl_producto(
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(300) NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
+    precio DOUBLE NOT NULL,
     disponible BOOLEAN DEFAULT TRUE,
     imagenUrl VARCHAR(500),
-    fechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idCategoria INT,
     FOREIGN KEY (idCategoria) REFERENCES tbl_categoriaProducto(id)
 );
@@ -153,7 +152,7 @@ CREATE TABLE tbl_promocionProducto(
     id INT PRIMARY KEY AUTO_INCREMENT,
     idProducto INT NOT NULL,
     idPromocion INT NOT NULL,
-    cantidadProducto INT NOT NULL,
+    cantidadProducto DOUBLE NOT NULL,
     UNIQUE KEY productoPromocion (idProducto, idPromocion),
     FOREIGN KEY (idPromocion) REFERENCES tbl_promocion(id) ON DELETE CASCADE,
     FOREIGN KEY (idProducto) REFERENCES tbl_producto(id)

@@ -1,22 +1,29 @@
 package org.clickandeat.modelo.entidades.base;
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.clickandeat.modelo.baseDatos.hiberImpl.UsuarioHiberImpl;
+import org.clickandeat.modelo.baseDatos.dao.implementacion.DaoImpl;
+
+
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @MappedSuperclass
-
-public abstract class Entidad
-{
+public abstract class Entidad {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-}
+    protected static Entidad buscarElemento(DaoImpl<? extends Entidad> DaoImpl, Integer id){
+        Entidad entidad = null;
+        entidad = DaoImpl.findById(id);
 
+        if(entidad == null){
+            System.out.println("Error | Elemento no encontrado");
+            return null;
+        } else {
+            return entidad;
+        }
+    }
+}
