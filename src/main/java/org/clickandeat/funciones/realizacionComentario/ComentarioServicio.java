@@ -32,6 +32,6 @@ public class ComentarioServicio {
         if (!ok)
             return "Ocurrió un error al guardar el comentario en la base de datos.";
 
-        return null; // null significa éxito
+        return null;
     }
 }

@@ -5,51 +5,181 @@ import org.clickandeat.modelo.entidades.sesion.RolEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegistroSwing extends JFrame {
-    public RegistroSwing(JFrame loginFrame, UsuarioServicio usuarioServicio) {
-        setTitle("Registro de Usuario");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(250, 230);
+
+    public RegistroSwing(JFrame ventanaLogin, UsuarioServicio usuarioServicio) {
+        setTitle("Click And Eat - Registro");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000, 650);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(6, 2, 10, 10));
+        setResizable(false);
 
-        JTextField tfNombre = new JTextField();
-        JTextField tfTelefono = new JTextField();
-        JPasswordField pfContrasena = new JPasswordField();
+        JPanel panel = new FondoAndyBurger();
+        panel.setLayout(null);
 
-        // ComboBox para elegir el rol
-        JComboBox<RolEnum> cbRol = new JComboBox<>(RolEnum.values());
+        // Botón "Regresar" arriba derecha (más redondo, más grande)
+        RoundedPanel regresarPanel = new RoundedPanel(30);
+        regresarPanel.setBackground(new Color(255, 191, 73));
+        regresarPanel.setBounds(895, 15, 80, 48);
+        JLabel lblRegresar = new JLabel("<-", SwingConstants.CENTER);
+        lblRegresar.setFont(new Font("Arial", Font.BOLD, 28));
+        lblRegresar.setBounds(0, 0, 80, 48);
+        lblRegresar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        regresarPanel.setLayout(null);
+        regresarPanel.add(lblRegresar);
+        panel.add(regresarPanel);
 
+        // Acción: regresar a login
+        lblRegresar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                RegistroSwing.this.dispose();
+                if (ventanaLogin != null) ventanaLogin.setVisible(true);
+            }
+        });
+
+        // Título "Registro"
+        JLabel lblTitulo = new JLabel("Registro", SwingConstants.CENTER);
+        lblTitulo.setOpaque(true);
+        lblTitulo.setBackground(new Color(255, 191, 73));
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 56));
+        lblTitulo.setBounds(230, 60, 540, 80);
+        panel.add(lblTitulo);
+
+        // Fondo del formulario
+        RoundedPanel formBg = new RoundedPanel(40);
+        formBg.setBackground(new Color(255, 219, 119));
+        formBg.setBounds(180, 175, 640, 270);
+        formBg.setLayout(null);
+        panel.add(formBg);
+
+        // Coordenadas y tamaño comunes
+        int labelWidth = 180;
+        int fieldWidth = 320;
+        int height = 42;
+        int leftMargin = 40;
+        int fieldMargin = 35;
+        int yStart = 25;
+        int yGap = 56;
+
+        // Etiqueta y campo "Nombre"
+        JLabel lblNombre = new JLabel("Nombre", SwingConstants.CENTER);
+        lblNombre.setOpaque(true);
+        lblNombre.setBackground(new Color(255, 191, 73));
+        lblNombre.setFont(new Font("Arial", Font.BOLD, 20));
+        lblNombre.setBounds(leftMargin, yStart, labelWidth, height);
+        formBg.add(lblNombre);
+
+        JTextField txtNombre = new JTextField();
+        txtNombre.setFont(new Font("Arial", Font.PLAIN, 18));
+        txtNombre.setBounds(leftMargin + labelWidth + fieldMargin, yStart, fieldWidth, height);
+        formBg.add(txtNombre);
+
+        // Etiqueta y campo "Telefono"
+        JLabel lblTelefono = new JLabel("Telefono", SwingConstants.CENTER);
+        lblTelefono.setOpaque(true);
+        lblTelefono.setBackground(new Color(255, 191, 73));
+        lblTelefono.setFont(new Font("Arial", Font.BOLD, 20));
+        lblTelefono.setBounds(leftMargin, yStart + yGap, labelWidth, height);
+        formBg.add(lblTelefono);
+
+        JTextField txtTelefono = new JTextField();
+        txtTelefono.setFont(new Font("Arial", Font.PLAIN, 18));
+        txtTelefono.setBounds(leftMargin + labelWidth + fieldMargin, yStart + yGap, fieldWidth, height);
+        formBg.add(txtTelefono);
+
+        // Etiqueta y campo "Contraseña"
+        JLabel lblContra = new JLabel("Contraseña", SwingConstants.CENTER);
+        lblContra.setOpaque(true);
+        lblContra.setBackground(new Color(255, 191, 73));
+        lblContra.setFont(new Font("Arial", Font.BOLD, 20));
+        lblContra.setBounds(leftMargin, yStart + yGap*2, labelWidth, height);
+        formBg.add(lblContra);
+
+        JPasswordField txtContra = new JPasswordField();
+        txtContra.setFont(new Font("Arial", Font.PLAIN, 18));
+        txtContra.setBounds(leftMargin + labelWidth + fieldMargin, yStart + yGap*2, fieldWidth, height);
+        formBg.add(txtContra);
+
+        // Etiqueta y combo "Tipo de Cuenta"
+        JLabel lblTipoCuenta = new JLabel("Tipo de Cuenta", SwingConstants.CENTER);
+        lblTipoCuenta.setOpaque(true);
+        lblTipoCuenta.setBackground(new Color(255, 191, 73));
+        lblTipoCuenta.setFont(new Font("Arial", Font.BOLD, 20));
+        lblTipoCuenta.setBounds(leftMargin, yStart + yGap*3, labelWidth, height);
+        formBg.add(lblTipoCuenta);
+
+        JComboBox<RolEnum> comboTipo = new JComboBox<>(RolEnum.values());
+        comboTipo.setFont(new Font("Arial", Font.PLAIN, 18));
+        comboTipo.setBounds(leftMargin + labelWidth + fieldMargin, yStart + yGap*3, fieldWidth, height);
+        formBg.add(comboTipo);
+
+        // Botón "Registrar"
         JButton btnRegistrar = new JButton("Registrar");
+        btnRegistrar.setBackground(new Color(255, 191, 73));
+        btnRegistrar.setFont(new Font("Arial", Font.BOLD, 34));
+        btnRegistrar.setFocusPainted(false);
+        btnRegistrar.setBounds(370, 490, 260, 54);
+        btnRegistrar.setBorderPainted(false);
+        panel.add(btnRegistrar);
 
-        add(new JLabel("Nombre:"));
-        add(tfNombre);
-        add(new JLabel("Teléfono:"));
-        add(tfTelefono);
-        add(new JLabel("Contraseña:"));
-        add(pfContrasena);
-        add(new JLabel("Tipo de cuenta:"));
-        add(cbRol);
+        // Acción: Registrar usuario
+        btnRegistrar.addActionListener(evt -> {
+            String nombre = txtNombre.getText().trim();
+            String telefono = txtTelefono.getText().trim();
+            String contrasena = new String(txtContra.getPassword());
+            RolEnum tipoRol = (RolEnum) comboTipo.getSelectedItem();
 
-        add(new JLabel()); // Espacio vacío
-        add(btnRegistrar);
-
-        btnRegistrar.addActionListener((ActionEvent e) -> {
-            String nombre = tfNombre.getText();
-            String telefono = tfTelefono.getText();
-            String contrasena = new String(pfContrasena.getPassword());
-            RolEnum tipoRol = (RolEnum) cbRol.getSelectedItem();
+            if (nombre.isEmpty() || telefono.isEmpty() || contrasena.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Completa todos los campos.");
+                return;
+            }
 
             boolean ok = usuarioServicio.registrarUsuario(nombre, telefono, contrasena, tipoRol);
             if (ok) {
                 JOptionPane.showMessageDialog(this, "Usuario registrado correctamente.");
-                loginFrame.setVisible(true);
+                if (ventanaLogin != null) ventanaLogin.setVisible(true);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Error al registrar usuario.");
+                JOptionPane.showMessageDialog(this, "Error: teléfono ya registrado.");
             }
         });
+
+        setContentPane(panel);
+    }
+
+    // Panel de fondo personalizado (fondo amarillo claro)
+    class FondoAndyBurger extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            setBackground(new Color(255, 239, 155));
+        }
+    }
+
+    // Panel con esquinas redondeadas
+    class RoundedPanel extends JPanel {
+        private int cornerRadius;
+        public RoundedPanel(int radius) {
+            super();
+            setOpaque(false);
+            this.cornerRadius = radius;
+        }
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Dimension arcs = new Dimension(cornerRadius, cornerRadius);
+            int width = getWidth();
+            int height = getHeight();
+            Graphics2D graphics = (Graphics2D) g;
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Fondo
+            graphics.setColor(getBackground());
+            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+        }
     }
 }

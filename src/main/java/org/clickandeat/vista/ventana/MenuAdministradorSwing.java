@@ -40,7 +40,7 @@ public class MenuAdministradorSwing extends JFrame {
 
         btnSalir.addActionListener(e -> {
             this.dispose();
-            new InicioSesionSwing(usuarioServicio).setVisible(true);
+            new InicioSesionSwing(usuarioServicio, null).setVisible(true);
         });
     }
 }
