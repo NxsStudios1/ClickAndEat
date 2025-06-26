@@ -7,7 +7,4 @@ public class IngredienteDao extends DaoImpl<Ingrediente> {
     public IngredienteDao(){
         super(Ingrediente.class);
     }
-
-
-
 }

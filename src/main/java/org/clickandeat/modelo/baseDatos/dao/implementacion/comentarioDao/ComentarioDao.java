@@ -10,11 +10,12 @@ public class ComentarioDao extends DaoImpl<Comentario> {
         super(Comentario.class);
     }
 
-    public List<Comentario> findAllConClienteYRol() {
+    public List<Comentario> findAllConRespuestasYCliente() {
         var session = sessionFactory.openSession();
         try {
             return session.createQuery(
-                    "SELECT c FROM Comentario c " +
+                    "SELECT DISTINCT c FROM Comentario c " +
+                            "LEFT JOIN FETCH c.respuestas " +
                             "JOIN FETCH c.cliente cli " +
                             "JOIN FETCH cli.rol r", Comentario.class
             ).getResultList();

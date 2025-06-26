@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana;
+package org.clickandeat.vista.ventana.inicioSwing;
 
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
 import org.clickandeat.modelo.entidades.sesion.RolEnum;
@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 public class RegistroSwing extends JFrame {
 
     public RegistroSwing(JFrame ventanaLogin, UsuarioServicio usuarioServicio) {
-        setTitle("Click And Eat - Registro");
+        setTitle("Registro Usuario - AndyBurger");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 650);
         setLocationRelativeTo(null);

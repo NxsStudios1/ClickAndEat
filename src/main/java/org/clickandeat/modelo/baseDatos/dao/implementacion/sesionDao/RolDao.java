@@ -22,14 +22,6 @@ public class RolDao extends DaoImpl<Rol> {
         }
     }
 
-    public List<Rol> findAllConUsuarios() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery(
-                            "SELECT DISTINCT r FROM Rol r LEFT JOIN FETCH r.usuarios", Rol.class)
-                    .getResultList();
-        }
-    }
-
     // Puedes agregar métodos personalizados aquí, por ejemplo:
     // public Usuario buscarPorTelefono(String telefono) { ... }
 }

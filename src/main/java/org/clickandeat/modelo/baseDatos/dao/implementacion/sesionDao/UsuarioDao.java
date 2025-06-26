@@ -23,17 +23,4 @@ public class UsuarioDao extends DaoImpl<Usuario> {
         }
     }
 
-
-    public Usuario findByTelefonoYContrasena(String telefono, String contrasena) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM tbl_usuario WHERE telefono = :tel AND contrasena = :pass", Usuario.class)
-                    .setParameter("tel", telefono)
-                    .setParameter("pass", contrasena)
-                    .uniqueResult();
-        }
-
-        // Puedes agregar métodos personalizados aquí, por ejemplo:
-        // public Usuario buscarPorTelefono(String telefono) { ... }
-
-    }
 }

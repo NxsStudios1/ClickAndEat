@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana;
+package org.clickandeat.vista.ventana.inicioSwing;
 
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
 
@@ -9,8 +9,8 @@ import java.awt.event.MouseEvent;
 
 public class VentanaBienvenida extends JFrame {
     public VentanaBienvenida(UsuarioServicio usuarioServicio) {
-        setTitle("Click And Eat");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle(" Andy Burger ");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Solo aquí EXIT_ON_CLOSE
         setSize(700, 480);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -40,11 +40,11 @@ public class VentanaBienvenida extends JFrame {
         });
 
         // Título "Bienvenido"
-        JLabel lblBienvenido = new JLabel("Bienvenido");
+        JLabel lblBienvenido = new JLabel(" BIENVENIDO ");
         lblBienvenido.setOpaque(true);
         lblBienvenido.setBackground(new Color(255, 194, 92));
         lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
-        lblBienvenido.setFont(new Font("Arial", Font.BOLD, 44));
+        lblBienvenido.setFont(new Font("Arial", Font.BOLD, 42));
         lblBienvenido.setBounds(170, 44, 350, 60);
         panel.add(lblBienvenido);
 
@@ -63,7 +63,7 @@ public class VentanaBienvenida extends JFrame {
 
         // Acción para continuar
         btnContinuar.addActionListener(e -> {
-            new InicioSesionSwing(usuarioServicio, VentanaBienvenida.this).setVisible(true);
+            new InicioSesionSwing(usuarioServicio, this).setVisible(true); // <-- le pasas this
             setVisible(false);
         });
 

@@ -1,13 +1,15 @@
-package org.clickandeat.vista.ventana;
+package org.clickandeat.vista.ventana.inicioSwing;
 
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
 import org.clickandeat.modelo.entidades.sesion.RolEnum;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import org.clickandeat.vista.ventana.adminSwing.MenuAdministradorSwing;
+import org.clickandeat.vista.ventana.clienteSwing.MenuClienteSwing;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InicioSesionSwing extends JFrame {
     private final UsuarioServicio usuarioServicio;
@@ -16,8 +18,8 @@ public class InicioSesionSwing extends JFrame {
     public InicioSesionSwing (UsuarioServicio usuarioServicio, JFrame ventanaBienvenida) {
         this.usuarioServicio = usuarioServicio;
         this.ventanaBienvenida = ventanaBienvenida;
-        setTitle("Click And Eat - Inicio Sesión");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Inicio Sesión - AndyBurger");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(820, 500);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -103,7 +105,7 @@ public class InicioSesionSwing extends JFrame {
         panel.add(centerPanel);
 
         // Etiqueta de registro abajo
-        JLabel lblRegistro = new JLabel("¿No te has registrado? Haz clic para registrarte.", SwingConstants.CENTER);
+        JLabel lblRegistro = new JLabel("¿ No te has Registrado ? Haz Click para Registrarte.", SwingConstants.CENTER);
         lblRegistro.setOpaque(true);
         lblRegistro.setBackground(new Color(255, 191, 73));
         lblRegistro.setFont(new Font("Arial", Font.BOLD, 14));
@@ -115,7 +117,6 @@ public class InicioSesionSwing extends JFrame {
         lblRegistro.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Aquí abres tu ventana de registro y ocultas esta
                 new RegistroSwing(InicioSesionSwing.this, usuarioServicio).setVisible(true);
                 setVisible(false);
             }
@@ -130,16 +131,16 @@ public class InicioSesionSwing extends JFrame {
                 if (usuario.getRol() != null && usuario.getRol().getTipo() == RolEnum.CLIENTE) {
                     JOptionPane.showMessageDialog(this, "Bienvenido/a " + usuario.getNombre() + " (Cliente)");
                     this.dispose();
-                    new MenuClienteSwing(usuario, usuarioServicio).setVisible(true);
+                    new MenuClienteSwing(usuario, usuarioServicio, ventanaBienvenida).setVisible(true);
                 } else if (usuario.getRol() != null && usuario.getRol().getTipo() == RolEnum.ADMINISTRADOR) {
                     JOptionPane.showMessageDialog(this, "Bienvenido/a " + usuario.getNombre() + " (Administrador)");
                     this.dispose();
-                    new MenuAdministradorSwing(usuario, usuarioServicio).setVisible(true);
+                    new MenuAdministradorSwing(usuario, usuarioServicio,ventanaBienvenida).setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Rol no reconocido.");
+                    JOptionPane.showMessageDialog(this, "Rol no Reconocido .");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Teléfono o contraseña incorrectos.");
+                JOptionPane.showMessageDialog(this, " ❌ --> Teléfono o Contraseña Incorrectos.");
             }
         });
 

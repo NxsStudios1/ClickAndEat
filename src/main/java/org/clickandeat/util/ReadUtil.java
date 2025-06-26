@@ -2,7 +2,7 @@ package org.clickandeat.util;
 
 import java.util.*;
 
-public class        ReadUtil
+public class       ReadUtil
 {
     private final Scanner scanner;
     private static ReadUtil readUtil;
