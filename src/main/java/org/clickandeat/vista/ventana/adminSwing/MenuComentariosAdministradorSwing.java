@@ -6,6 +6,7 @@ import org.clickandeat.modelo.baseDatos.dao.implementacion.comentarioDao.Respues
 import org.clickandeat.modelo.entidades.comentario.Comentario;
 import org.clickandeat.modelo.entidades.comentario.RespuestaComentario;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
+import org.clickandeat.vista.ventana.adminSwing.menu.MenuAdministracionSwing;
 import org.clickandeat.vista.ventana.inicioSwing.InicioSesionSwing;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class MenuComentariosAdministradorSwing extends JFrame {
     private final JPanel panelComentarios;
     private final RespuestaComentarioServicio respuestaComentarioServicio;
     private final RespuestaComentarioDao respuestaComentarioDao;
-    private final Usuario admin;
+    private final Usuario usuario;
     private final UsuarioServicio usuarioServicio;
     private final JFrame menuAdministradorSwing;
 
@@ -27,8 +28,8 @@ public class MenuComentariosAdministradorSwing extends JFrame {
     private final Color COLOR_SELECCIONADO = new Color(253, 159, 119);
     private final Color COLOR_DESELECCIONADO = new Color(190, 235, 255);
 
-    public MenuComentariosAdministradorSwing(Usuario admin, UsuarioServicio usuarioServicio, JFrame menuAdministradorSwing) {
-        this.admin = admin;
+    public MenuComentariosAdministradorSwing(Usuario usuario, UsuarioServicio usuarioServicio, JFrame menuAdministradorSwing) {
+        this.usuario = usuario;
         this.usuarioServicio = usuarioServicio;
         this.menuAdministradorSwing = menuAdministradorSwing;
         this.respuestaComentarioDao = new RespuestaComentarioDao();
@@ -65,7 +66,7 @@ public class MenuComentariosAdministradorSwing extends JFrame {
 
         panelIzquierdo.add(panelArriba, BorderLayout.NORTH);
 
-        // Panel de botones menú (GridBagLayout para centrar)
+        // Panel de botones menú
         JPanel panelBotones = new JPanel(new GridBagLayout());
         panelBotones.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -76,6 +77,7 @@ public class MenuComentariosAdministradorSwing extends JFrame {
         String[] opciones = {"Inventario", "Pedidos", "Comentarios", "Administración Menu"};
         JButton btnInventario = null;
         JButton btnComentarios = null;
+        JButton btnAdministracionMenu = null;
         for (int i=0; i<opciones.length; i++) {
             JButton btn = new JButton(opciones[i]);
             btn.setFont(new Font(FUENTE_BONITA, Font.BOLD, 24));
@@ -94,6 +96,9 @@ public class MenuComentariosAdministradorSwing extends JFrame {
                 btnComentarios = btn;
                 btn.setEnabled(false);
             }
+            if (opciones[i].equals("Administración Menu")) {
+                btnAdministracionMenu = btn;
+            }
         }
         gbc.weighty = 1;
         gbc.gridy = opciones.length;
@@ -111,7 +116,7 @@ public class MenuComentariosAdministradorSwing extends JFrame {
         lblIconoUser.setBounds(28, 34, 64, 64);
         panelUsuario.add(lblIconoUser);
 
-        JLabel lblAdmin = new JLabel(admin != null ? admin.getNombre() : "Administrador");
+        JLabel lblAdmin = new JLabel(usuario != null ? usuario.getNombre() : "Administrador");
         lblAdmin.setFont(new Font(FUENTE_BONITA, Font.BOLD, 13));
         lblAdmin.setBounds(110, 60, 150, 30);
         panelUsuario.add(lblAdmin);
@@ -127,6 +132,7 @@ public class MenuComentariosAdministradorSwing extends JFrame {
 
         panelIzquierdo.add(panelUsuario, BorderLayout.SOUTH);
 
+        // Acción salir
         btnSalir.addActionListener(e -> {
             this.dispose();
             if (menuAdministradorSwing != null) {
@@ -136,10 +142,19 @@ public class MenuComentariosAdministradorSwing extends JFrame {
             }
         });
 
+        // Acción Inventario
         if (btnInventario != null) {
             btnInventario.addActionListener(e -> {
                 this.setVisible(false);
-                new MenuInventarioSwing(admin, usuarioServicio, menuAdministradorSwing).setVisible(true);
+                new MenuInventarioSwing(usuario, usuarioServicio, menuAdministradorSwing).setVisible(true);
+            });
+        }
+
+        // Acción Administración Menu
+        if (btnAdministracionMenu != null) {
+            btnAdministracionMenu.addActionListener(e -> {
+                this.setVisible(false);
+                new MenuAdministracionSwing(usuario, usuarioServicio, this).setVisible(true);
             });
         }
 
@@ -512,7 +527,7 @@ public class MenuComentariosAdministradorSwing extends JFrame {
             }
             RespuestaComentario respuesta = new RespuestaComentario();
             respuesta.setComentario(comentarioSeleccionado);
-            respuesta.setAdministrador(admin);
+            respuesta.setAdministrador(usuario);
             respuesta.setFechaRespuesta(java.time.LocalDateTime.now());
             respuesta.setContenido(contenidoRespuesta);
 

@@ -97,7 +97,6 @@ CREATE TABLE tbl_producto(
     descripcion VARCHAR(300) NOT NULL,
     precio DOUBLE NOT NULL,
     disponible BOOLEAN DEFAULT TRUE,
-    imagenUrl VARCHAR(500),
     idCategoria INT,
     FOREIGN KEY (idCategoria) REFERENCES tbl_categoriaProducto(id)
 );
@@ -112,7 +111,7 @@ CREATE TABLE tbl_productoIngrediente(
     idIngrediente INT NOT NULL,
     cantidadNecesaria DOUBLE NOT NULL,
     UNIQUE KEY productoIngrediente (idProducto, idIngrediente),
-    FOREIGN KEY (idProducto) REFERENCES tbl_producto(id) ON DELETE CASCADE,
+    FOREIGN KEY (idProducto) REFERENCES tbl_producto(id),
     FOREIGN KEY (idIngrediente) REFERENCES tbl_ingrediente(id)
 );
 
@@ -154,7 +153,7 @@ CREATE TABLE tbl_promocionProducto(
     idPromocion INT NOT NULL,
     cantidadProducto DOUBLE NOT NULL,
     UNIQUE KEY productoPromocion (idProducto, idPromocion),
-    FOREIGN KEY (idPromocion) REFERENCES tbl_promocion(id) ON DELETE CASCADE,
+    FOREIGN KEY (idPromocion) REFERENCES tbl_promocion(id),
     FOREIGN KEY (idProducto) REFERENCES tbl_producto(id)
 );
 
@@ -171,7 +170,7 @@ CREATE TABLE tbl_detallePedido (
     idProducto INT NULL,
     idPromocion INT NULL,
     idPedido INT NOT NULL,
-    FOREIGN KEY (idPedido) REFERENCES tbl_pedido(id) ON DELETE CASCADE,
+    FOREIGN KEY (idPedido) REFERENCES tbl_pedido(id) ,
     FOREIGN KEY (idProducto) REFERENCES tbl_producto(id),
     FOREIGN KEY (idPromocion) REFERENCES tbl_promocion(id)
 );

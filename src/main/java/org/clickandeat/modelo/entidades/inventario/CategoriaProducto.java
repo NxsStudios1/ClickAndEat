@@ -24,4 +24,9 @@ public class CategoriaProducto extends Entidad {
 
     @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

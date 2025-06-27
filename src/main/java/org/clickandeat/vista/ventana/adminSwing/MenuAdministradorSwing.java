@@ -1,7 +1,12 @@
 package org.clickandeat.vista.ventana.adminSwing;
 
+import org.clickandeat.funciones.administracion.CategoriaProductoServicio;
+import org.clickandeat.funciones.administracion.ProductoServicio;
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
+import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.CategoriaProductoDao;
+import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.ProductoDao;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
+import org.clickandeat.vista.ventana.adminSwing.menu.MenuAdministracionSwing;
 import org.clickandeat.vista.ventana.inicioSwing.InicioSesionSwing;
 
 import javax.swing.*;
@@ -13,10 +18,18 @@ public class MenuAdministradorSwing extends JFrame {
     private final UsuarioServicio usuarioServicio;
     private final JFrame ventanaAnterior;
 
+    // Servicios para pasar a otras ventanas
+    private final CategoriaProductoServicio categoriaServicio;
+    private final ProductoServicio productoServicio;
+
     public MenuAdministradorSwing(Usuario admin, UsuarioServicio usuarioServicio, JFrame ventanaAnterior) {
         this.admin = admin;
         this.usuarioServicio = usuarioServicio;
         this.ventanaAnterior = ventanaAnterior;
+
+        // Crear los servicios una sola vez
+        this.categoriaServicio = new CategoriaProductoServicio(new CategoriaProductoDao());
+        this.productoServicio = new ProductoServicio(new ProductoDao());
 
         setTitle("Panel Principal - Andy Burger");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +52,7 @@ public class MenuAdministradorSwing extends JFrame {
         JLabel lblLogo = new JLabel();
         lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
         lblLogo.setIcon(new ImageIcon(logo.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
-        lblLogo.setBorder(BorderFactory.createEmptyBorder(8,0,0,0)); // margen superior reducido
+        lblLogo.setBorder(BorderFactory.createEmptyBorder(8,0,0,0));
         panelArriba.add(lblLogo, BorderLayout.CENTER);
 
         JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
@@ -73,7 +86,6 @@ public class MenuAdministradorSwing extends JFrame {
             gbc.gridy = i;
             panelBotones.add(btn, gbc);
 
-            // Guardamos los botones para los listeners después
             switch (opciones[i]) {
                 case "Inventario":
                     btnInventario = btn;
@@ -84,7 +96,7 @@ public class MenuAdministradorSwing extends JFrame {
                 case "Comentarios":
                     btnComentarios = btn;
                     break;
-                case "Administracion Menu":
+                case "Administración Menu":
                     btnAdministracionMenu = btn;
                     break;
             }
@@ -95,24 +107,21 @@ public class MenuAdministradorSwing extends JFrame {
 
         panelIzquierdo.add(panelBotones, BorderLayout.CENTER);
 
-        // Panel usuario abajo (más grande todo)
+        // Panel usuario abajo
         JPanel panelUsuario = new JPanel(null);
         panelUsuario.setBackground(new Color(255, 162, 130));
         panelUsuario.setPreferredSize(new Dimension(270, 120));
 
-        // Icono usuario más grande
         ImageIcon iconoUser = new ImageIcon(getClass().getResource("/recursosGraficos/iconos/user.png"));
         JLabel lblIconoUser = new JLabel(new ImageIcon(iconoUser.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH)));
         lblIconoUser.setBounds(28, 34, 64, 64);
         panelUsuario.add(lblIconoUser);
 
-        // Etiqueta Administrador más pequeña y nombre real
         JLabel lblAdmin = new JLabel(admin != null ? admin.getNombre() : "Administrador");
         lblAdmin.setFont(new Font(FUENTE_BONITA, Font.BOLD, 13));
         lblAdmin.setBounds(110, 60, 150, 30);
         panelUsuario.add(lblAdmin);
 
-        // Icono de salir mucho más grande convertido en botón
         ImageIcon iconoSalir = new ImageIcon(getClass().getResource("/recursosGraficos/iconos/salir.png"));
         JButton btnSalir = new JButton(new ImageIcon(iconoSalir.getImage().getScaledInstance(36, 36, Image.SCALE_SMOOTH)));
         btnSalir.setBounds(220, 60, 36, 36);
@@ -124,7 +133,7 @@ public class MenuAdministradorSwing extends JFrame {
 
         panelIzquierdo.add(panelUsuario, BorderLayout.SOUTH);
 
-        // Acción "Cerrar sesión" (volver a ventana de bienvenida si existe, si no al login)
+        // Acción cerrar sesión
         btnSalir.addActionListener(e -> {
             this.dispose();
             if (ventanaAnterior != null) {
@@ -134,7 +143,7 @@ public class MenuAdministradorSwing extends JFrame {
             }
         });
 
-        // PANEL DERECHO - Fondo igual amarillo claro que el centro
+        // PANEL DERECHO - Fondo amarillo claro
         JPanel panelDerecho = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -151,7 +160,6 @@ public class MenuAdministradorSwing extends JFrame {
         };
         panelSuperior.setBackground(new Color(181, 224, 202));
         panelSuperior.setPreferredSize(new Dimension(0, 48));
-
         JLabel lblPanel = new JLabel("Panel Principal");
         lblPanel.setFont(new Font("Arial", Font.BOLD, 26));
         lblPanel.setForeground(Color.BLACK);
@@ -247,6 +255,16 @@ public class MenuAdministradorSwing extends JFrame {
             });
         }
 
-        // Si quieres puedes implementar los listeners de pedidos y promociones aquí también
+        // Acción del botón Administración Menu
+        if (btnAdministracionMenu != null) {
+            btnAdministracionMenu.addActionListener(e -> {
+                this.setVisible(false);
+                // Pasa las referencias necesarias para navegación circular
+                new MenuAdministracionSwing(admin, usuarioServicio, this).setVisible(true);
+
+            });
+        }
+
+        // Si quieres puedes implementar los listeners de pedidos aquí también
     }
 }

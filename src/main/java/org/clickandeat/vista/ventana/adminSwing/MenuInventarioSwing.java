@@ -1,11 +1,16 @@
 package org.clickandeat.vista.ventana.adminSwing;
 
+import org.clickandeat.funciones.administracion.CategoriaProductoServicio;
 import org.clickandeat.funciones.administracion.InventarioServicio;
+import org.clickandeat.funciones.administracion.ProductoServicio;
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
+import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.CategoriaProductoDao;
 import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.IngredienteDao;
+import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.ProductoDao;
 import org.clickandeat.modelo.entidades.inventario.Ingrediente;
 import org.clickandeat.modelo.entidades.inventario.UnidadMedidaEnum;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
+import org.clickandeat.vista.ventana.adminSwing.menu.MenuAdministracionSwing;
 import org.clickandeat.vista.ventana.inicioSwing.InicioSesionSwing;
 
 import javax.swing.*;
@@ -19,7 +24,7 @@ public class MenuInventarioSwing extends JFrame {
 
     private final Usuario usuario;
     private final UsuarioServicio usuarioServicio;
-    private final JFrame menuAdministradorSwing; // Siempre referencia al menú administrador
+    private final JFrame menuAdministradorSwing; // Referencia al menú principal
     private final InventarioServicio inventarioServicio;
     private final DefaultTableModel model;
     private final JTable tabla;
@@ -70,7 +75,9 @@ public class MenuInventarioSwing extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         String[] opciones = {"Inventario", "Pedidos", "Comentarios", "Administración Menu"};
+        JButton btnInventario = null;
         JButton btnComentarios = null;
+        JButton btnAdministracionMenu = null;
         for (int i = 0; i < opciones.length; i++) {
             JButton btn = new JButton(opciones[i]);
             btn.setFont(new Font(FUENTE_BONITA, Font.BOLD, 24));
@@ -84,9 +91,13 @@ public class MenuInventarioSwing extends JFrame {
 
             if ("Inventario".equals(opciones[i])) {
                 btn.setEnabled(false);
+                btnInventario = btn;
             }
             if ("Comentarios".equals(opciones[i])) {
                 btnComentarios = btn;
+            }
+            if ("Administración Menu".equals(opciones[i])) {
+                btnAdministracionMenu = btn;
             }
         }
         gbc.weighty = 1;
@@ -136,6 +147,13 @@ public class MenuInventarioSwing extends JFrame {
             btnComentarios.addActionListener(e -> {
                 this.setVisible(false);
                 new MenuComentariosAdministradorSwing(usuario, usuarioServicio, menuAdministradorSwing).setVisible(true);
+            });
+        }
+        // ---- ACCIÓN PARA IR A MENÚ ADMINISTRACIÓN ----
+        if (btnAdministracionMenu != null) {
+            btnAdministracionMenu.addActionListener(e -> {
+                this.setVisible(false);
+                new MenuAdministracionSwing(usuario, usuarioServicio, menuAdministradorSwing).setVisible(true);
             });
         }
         // ---------------------------------------
@@ -261,6 +279,7 @@ public class MenuInventarioSwing extends JFrame {
         btnEliminar.addActionListener(e -> eliminarIngrediente());
         btnConsulta.addActionListener(e -> consultarIngrediente());
     }
+
 
     private void cargarIngredientesEnTabla() {
         model.setRowCount(0);

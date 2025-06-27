@@ -28,9 +28,6 @@ public class Producto extends Entidad {
     @Column
     private Boolean disponible = true;
 
-    @Column(length = 500)
-    private String imagenUrl;
-
     @ManyToOne
     @JoinColumn(name = "idCategoria")
     private CategoriaProducto categoria;
