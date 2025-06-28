@@ -14,7 +14,6 @@ public class RespuestaComentarioDao extends DaoImpl<RespuestaComentario> {
         super(RespuestaComentario.class);
     }
 
-    // Elimina todas las respuestas asociadas a un comentario
     public void eliminarPorComentarioId(int comentarioId) {
         Transaction tx = null;
         try (Session session = openSession()) {
@@ -29,7 +28,6 @@ public class RespuestaComentarioDao extends DaoImpl<RespuestaComentario> {
         }
     }
 
-    // Elimina el comentario por id
     public void eliminarComentarioPorId(int comentarioId) {
         Transaction tx = null;
         try (Session session = openSession()) {

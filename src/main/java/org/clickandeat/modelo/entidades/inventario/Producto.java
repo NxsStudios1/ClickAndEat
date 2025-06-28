@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.clickandeat.modelo.entidades.base.Entidad;
 
 import java.util.List;
@@ -11,9 +12,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "promociones")
 @Entity
 @Table(name = "tbl_producto")
-
 public class Producto extends Entidad {
 
     @Column(nullable = false, length = 100)
@@ -31,9 +32,6 @@ public class Producto extends Entidad {
     @ManyToOne
     @JoinColumn(name = "idCategoria")
     private CategoriaProducto categoria;
-
-    @OneToMany(mappedBy = "producto")
-    private List<ProductoIngrediente> ingredientes;
 
     @OneToMany(mappedBy = "producto")
     private List<PromocionProducto> promociones;

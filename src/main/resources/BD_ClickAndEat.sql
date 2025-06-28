@@ -4,7 +4,7 @@
 
 # Equipo 1
 
-CREATE DATABASE IF NOT EXISTS clickandeat;
+CREATE DATABASE clickandeat;
 
 USE clickandeat;
 SHOW TABLES;
@@ -101,19 +101,6 @@ CREATE TABLE tbl_producto(
     FOREIGN KEY (idCategoria) REFERENCES tbl_categoriaProducto(id)
 );
 
--- -----------------------------------------------------
--- Table `tbl_productoIngrediente`
--- -----------------------------------------------------
-
-CREATE TABLE tbl_productoIngrediente(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    idProducto INT NOT NULL,
-    idIngrediente INT NOT NULL,
-    cantidadNecesaria DOUBLE NOT NULL,
-    UNIQUE KEY productoIngrediente (idProducto, idIngrediente),
-    FOREIGN KEY (idProducto) REFERENCES tbl_producto(id),
-    FOREIGN KEY (idIngrediente) REFERENCES tbl_ingrediente(id)
-);
 
 -- -----------------------------------------------------
 -- Table `tbl_pedido`
@@ -163,14 +150,13 @@ CREATE TABLE tbl_promocionProducto(
 
 CREATE TABLE tbl_detallePedido (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    tipoItem ENUM('PRODUCTO', 'PROMOCION') NOT NULL,
     cantidad INT NOT NULL DEFAULT 1,
     precioUnitario DOUBLE NOT NULL,
     subtotal DOUBLE NOT NULL,
     idProducto INT NULL,
     idPromocion INT NULL,
     idPedido INT NOT NULL,
-    FOREIGN KEY (idPedido) REFERENCES tbl_pedido(id) ,
+    FOREIGN KEY (idPedido) REFERENCES tbl_pedido(id),
     FOREIGN KEY (idProducto) REFERENCES tbl_producto(id),
     FOREIGN KEY (idPromocion) REFERENCES tbl_promocion(id)
 );

@@ -7,6 +7,5 @@ public class CategoriaProductoDao extends DaoImpl<CategoriaProducto> {
     public CategoriaProductoDao(){
         super(CategoriaProducto.class);
     }
-    // Puedes agregar métodos personalizados aquí, por ejemplo:
-    // public Usuario buscarPorTelefono(String telefono) { ... }
+
 }

@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.clickandeat.modelo.entidades.base.Entidad;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = {"promocion"})
 @Entity
 @Table(name = "tbl_promocionProducto")
 public class PromocionProducto extends Entidad {
@@ -23,5 +25,4 @@ public class PromocionProducto extends Entidad {
     @ManyToOne
     @JoinColumn(name = "idPromocion", nullable = false)
     private Promocion promocion;
-
 }

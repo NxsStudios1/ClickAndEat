@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.clickandeat.modelo.entidades.base.Entidad;
 
 import java.time.LocalDate;
@@ -15,9 +16,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "productos")
 @Entity
 @Table(name = "tbl_promocion")
-
 public class Promocion extends Entidad {
 
     @Column(nullable = false, length = 100)

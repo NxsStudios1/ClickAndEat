@@ -30,7 +30,6 @@
         <mapping class="org.clickandeat.modelo.entidades.inventario.Ingrediente"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.CategoriaProducto"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.Producto"/>
-        <mapping class="org.clickandeat.modelo.entidades.inventario.ProductoIngrediente"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.Promocion"/>
         <mapping class="org.clickandeat.modelo.entidades.inventario.PromocionProducto"/>
         <mapping class="org.clickandeat.modelo.entidades.pedido.Pedido"/>

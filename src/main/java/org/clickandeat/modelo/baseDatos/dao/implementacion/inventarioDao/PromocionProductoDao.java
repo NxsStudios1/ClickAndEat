@@ -8,6 +8,4 @@ public class PromocionProductoDao extends DaoImpl<PromocionProducto> {
         super(PromocionProducto.class);
     }
 
-    // Puedes agregar métodos personalizados aquí, por ejemplo:
-    // public Usuario buscarPorTelefono(String telefono) { ... }
 }

@@ -3,8 +3,8 @@ package org.clickandeat.vista.ventana.inicioSwing;
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
 import org.clickandeat.modelo.entidades.sesion.RolEnum;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-import org.clickandeat.vista.ventana.adminSwing.MenuAdministradorSwing;
-import org.clickandeat.vista.ventana.clienteSwing.MenuClienteSwing;
+import org.clickandeat.vista.ventana.adminSwing.MenuAdministrador;
+import org.clickandeat.vista.ventana.clienteSwing.MenuCliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -131,11 +131,11 @@ public class InicioSesionSwing extends JFrame {
                 if (usuario.getRol() != null && usuario.getRol().getTipo() == RolEnum.CLIENTE) {
                     JOptionPane.showMessageDialog(this, "Bienvenido/a " + usuario.getNombre() + " (Cliente)");
                     this.dispose();
-                    new MenuClienteSwing(usuario, usuarioServicio, ventanaBienvenida).setVisible(true);
+                    new MenuCliente(usuario, usuarioServicio, ventanaBienvenida).setVisible(true);
                 } else if (usuario.getRol() != null && usuario.getRol().getTipo() == RolEnum.ADMINISTRADOR) {
                     JOptionPane.showMessageDialog(this, "Bienvenido/a " + usuario.getNombre() + " (Administrador)");
                     this.dispose();
-                    new MenuAdministradorSwing(usuario, usuarioServicio,ventanaBienvenida).setVisible(true);
+                    new MenuAdministrador(usuario, usuarioServicio,ventanaBienvenida).setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Rol no Reconocido .");
                 }

@@ -7,7 +7,6 @@ public class DetallePedidoDao extends DaoImpl<DetallePedido> {
     public DetallePedidoDao(){
         super(DetallePedido.class);
     }
-    // Puedes agregar métodos personalizados aquí, por ejemplo:
-    // public Usuario buscarPorTelefono(String telefono) { ... }
+
 
 }
