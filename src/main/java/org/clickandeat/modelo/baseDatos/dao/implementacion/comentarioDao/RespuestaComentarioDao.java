@@ -50,4 +50,5 @@ public class RespuestaComentarioDao extends DaoImpl<RespuestaComentario> {
             ).list();
         }
     }
+
 }

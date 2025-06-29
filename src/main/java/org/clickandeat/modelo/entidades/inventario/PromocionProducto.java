@@ -25,4 +25,5 @@ public class PromocionProducto extends Entidad {
     @ManyToOne
     @JoinColumn(name = "idPromocion", nullable = false)
     private Promocion promocion;
+
 }

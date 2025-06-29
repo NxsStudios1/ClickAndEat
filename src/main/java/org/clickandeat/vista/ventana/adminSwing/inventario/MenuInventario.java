@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana.adminSwing;
+package org.clickandeat.vista.ventana.adminSwing.inventario;
 
 import org.clickandeat.funciones.administracion.InventarioServicio;
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
@@ -6,8 +6,10 @@ import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.Ingredi
 import org.clickandeat.modelo.entidades.inventario.Ingrediente;
 import org.clickandeat.modelo.entidades.inventario.UnidadMedidaEnum;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-import org.clickandeat.vista.ventana.adminSwing.menuProducto.MenuAdministracion;
-import org.clickandeat.vista.ventana.inicioSwing.InicioSesionSwing;
+import org.clickandeat.vista.ventana.adminSwing.comentario.MenuComentariosAdministrador;
+import org.clickandeat.vista.ventana.adminSwing.pedidos.MenuPedidos;
+import org.clickandeat.vista.ventana.adminSwing.administracion.MenuAdministracion;
+import org.clickandeat.vista.ventana.inicioSwing.InicioSesion;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -131,7 +133,7 @@ public class MenuInventario extends JFrame {
             if (menuAdministradorSwing != null) {
                 menuAdministradorSwing.setVisible(true);
             } else {
-                new InicioSesionSwing(usuarioServicio, null).setVisible(true);
+                new InicioSesion(usuarioServicio, null).setVisible(true);
             }
         });
 
@@ -147,7 +149,7 @@ public class MenuInventario extends JFrame {
         if (btnPedidos != null) {
             btnPedidos.addActionListener(e -> {
                 this.setVisible(false);
-                new MenuPedidosAdministrador(usuario, usuarioServicio, this).setVisible(true);
+                new MenuPedidos(usuario, usuarioServicio, this).setVisible(true);
             });
         }
 

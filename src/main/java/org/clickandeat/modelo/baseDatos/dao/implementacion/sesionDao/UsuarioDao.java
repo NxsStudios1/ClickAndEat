@@ -6,6 +6,7 @@ import org.clickandeat.modelo.entidades.sesion.Usuario;
 import org.hibernate.Session;
 
 public class UsuarioDao extends DaoImpl<Usuario> {
+
     public UsuarioDao(){
         super(Usuario.class);
     }

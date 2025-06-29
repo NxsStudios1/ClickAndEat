@@ -8,4 +8,5 @@ public class DetallePedidoServicio {
     public DetallePedidoServicio(DetallePedidoDao detallePedidoDao){
         this.detallePedidoDao = detallePedidoDao;
     }
+
 }

@@ -1,6 +1,7 @@
 package org.clickandeat.modelo.entidades.pedido;
 
 public enum EstadoPedidoEnum {
+
     PENDIENTE(1),
     EN_PROCESO(2),
     TERMINADO(3),
@@ -23,4 +24,5 @@ public enum EstadoPedidoEnum {
         }
         return null;
     }
+
 }

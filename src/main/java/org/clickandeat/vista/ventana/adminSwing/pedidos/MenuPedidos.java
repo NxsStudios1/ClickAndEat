@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana.adminSwing;
+package org.clickandeat.vista.ventana.adminSwing.pedidos;
 
 import org.clickandeat.funciones.restaurante.PedidoServicio;
 import org.clickandeat.modelo.baseDatos.dao.implementacion.pedidoDao.PedidoDao;
@@ -7,14 +7,16 @@ import org.clickandeat.modelo.entidades.pedido.Pedido;
 import org.clickandeat.modelo.entidades.pedido.EstadoPedidoEnum;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
-import org.clickandeat.vista.ventana.adminSwing.menuProducto.MenuAdministracion;
+import org.clickandeat.vista.ventana.adminSwing.comentario.MenuComentariosAdministrador;
+import org.clickandeat.vista.ventana.adminSwing.inventario.MenuInventario;
+import org.clickandeat.vista.ventana.adminSwing.administracion.MenuAdministracion;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class MenuPedidosAdministrador extends JFrame {
+public class MenuPedidos extends JFrame {
     private static final String FUENTE_BONITA = "Comic Sans MS";
     private final Usuario usuario;
     private final UsuarioServicio usuarioServicio;
@@ -23,7 +25,7 @@ public class MenuPedidosAdministrador extends JFrame {
     private final JFrame ventanaAnterior;
     private JPanel panelCentral;
 
-    public MenuPedidosAdministrador(Usuario usuario, UsuarioServicio usuarioServicio, JFrame ventanaAnterior) {
+    public MenuPedidos(Usuario usuario, UsuarioServicio usuarioServicio, JFrame ventanaAnterior) {
         this.usuario = usuario;
         this.usuarioServicio = usuarioServicio;
         this.pedidoDao = new PedidoDao();
@@ -37,10 +39,10 @@ public class MenuPedidosAdministrador extends JFrame {
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // === PANEL IZQUIERDO (sidebar) ===
+        // Panel Izquierdo (Sidebar)
         JPanel panelIzquierdo = crearSidebar();
 
-        // === PANEL DERECHO ===
+        // Panel Derecho
         JPanel panelDerecho = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -50,7 +52,7 @@ public class MenuPedidosAdministrador extends JFrame {
             }
         };
 
-        // === PANEL SUPERIOR ===
+        // Panel Superior
         JPanel panelSuperior = new JPanel(null) {
             @Override
             public boolean isOpaque() { return true; }
@@ -72,7 +74,7 @@ public class MenuPedidosAdministrador extends JFrame {
 
         panelDerecho.add(panelSuperior, BorderLayout.NORTH);
 
-        // === PANEL CENTRAL: Lista de pedidos agrupados por estado ===
+        // Panel Central: Lista de pedidos agrupados por estado
         panelCentral = new JPanel();
         panelCentral.setLayout(new BoxLayout(panelCentral, BoxLayout.Y_AXIS));
         panelCentral.setOpaque(false);
@@ -95,8 +97,6 @@ public class MenuPedidosAdministrador extends JFrame {
 
         // Cargar pedidos iniciales
         cargarPedidos();
-
-        // Añadir ambos al principal
         panelPrincipal.add(panelIzquierdo, BorderLayout.WEST);
         panelPrincipal.add(panelDerecho, BorderLayout.CENTER);
         setContentPane(panelPrincipal);
@@ -108,7 +108,7 @@ public class MenuPedidosAdministrador extends JFrame {
         panelIzquierdo.setPreferredSize(new Dimension(270, 830));
         panelIzquierdo.setLayout(new BorderLayout());
 
-        // Panel de arriba (logo + linea)
+        // Panel de arriba
         JPanel panelArriba = new JPanel(new BorderLayout());
         panelArriba.setOpaque(false);
 
@@ -126,7 +126,7 @@ public class MenuPedidosAdministrador extends JFrame {
 
         panelIzquierdo.add(panelArriba, BorderLayout.NORTH);
 
-        // Panel de botones menú (GridBagLayout para centrar)
+        // Panel de botones menú
         JPanel panelBotones = new JPanel(new GridBagLayout());
         panelBotones.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -196,8 +196,6 @@ public class MenuPedidosAdministrador extends JFrame {
 
         panelIzquierdo.add(panelUsuario, BorderLayout.SOUTH);
 
-        // ACCIONES DE LOS BOTONES LATERALES
-
         // Inventario
         if (btnInventario != null) {
             btnInventario.addActionListener(e -> {
@@ -205,12 +203,10 @@ public class MenuPedidosAdministrador extends JFrame {
                 new MenuInventario(usuario, usuarioServicio, ventanaAnterior).setVisible(true);
             });
         }
-
         // Pedidos (este mismo menú, no hace nada)
         if (btnPedidos != null) {
             btnPedidos.setEnabled(false);
         }
-
         // Comentarios
         if (btnComentarios != null) {
             btnComentarios.addActionListener(e -> {
@@ -218,7 +214,6 @@ public class MenuPedidosAdministrador extends JFrame {
                 new MenuComentariosAdministrador(usuario, usuarioServicio, ventanaAnterior).setVisible(true);
             });
         }
-
         // Administración Menú
         if (btnAdministracionMenu != null) {
             btnAdministracionMenu.addActionListener(e -> {
@@ -226,7 +221,6 @@ public class MenuPedidosAdministrador extends JFrame {
                 new MenuAdministracion(usuario, usuarioServicio, ventanaAnterior).setVisible(true);
             });
         }
-
         // Salir
         btnSalir.addActionListener(e -> {
             this.dispose();
@@ -234,7 +228,6 @@ public class MenuPedidosAdministrador extends JFrame {
                 ventanaAnterior.setVisible(true);
             }
         });
-
         return panelIzquierdo;
     }
 
@@ -254,19 +247,23 @@ public class MenuPedidosAdministrador extends JFrame {
         for (EstadoPedidoEnum estado : EstadoPedidoEnum.values()) {
             List<Pedido> pedidosEstado = pedidosPorEstado.get(estado);
             if (!pedidosEstado.isEmpty()) {
-                // Título de estado
-                JLabel lblTitulo = new JLabel(nombreSeccionEstado(estado));
-                lblTitulo.setFont(new Font(FUENTE_BONITA, Font.BOLD, 26));
+                JPanel panelSubtitulo = new JPanel();
+                panelSubtitulo.setOpaque(false);
+                panelSubtitulo.setLayout(new BoxLayout(panelSubtitulo, BoxLayout.Y_AXIS));
+                JLabel lblTitulo = new JLabel(nombreSeccionEstado(estado), SwingConstants.CENTER);
+                lblTitulo.setFont(new Font(FUENTE_BONITA, Font.BOLD, 33));
                 lblTitulo.setForeground(new Color(176, 121, 4));
-                lblTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
-                lblTitulo.setBorder(BorderFactory.createEmptyBorder(24, 8, 6, 0));
-                panelCentral.add(lblTitulo);
+                lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+                lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 8, 0));
+                panelSubtitulo.add(lblTitulo);
 
-                // Línea separadora ancha
+                // Línea separadora centrada y ancha
                 JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
                 separator.setForeground(new Color(255, 162, 130));
                 separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 3));
-                panelCentral.add(separator);
+                panelSubtitulo.add(separator);
+
+                panelCentral.add(panelSubtitulo);
 
                 for (Pedido pedido : pedidosEstado) {
                     panelCentral.add(Box.createVerticalStrut(10));
@@ -289,16 +286,19 @@ public class MenuPedidosAdministrador extends JFrame {
     }
 
     private JPanel crearPanelPedido(Pedido pedido) {
-        JPanel panelPedido = new JPanel(new BorderLayout(32, 0));
+        int baseWidth = 700, baseHeight = 120;
+        int width = (int) (baseWidth * 0.90);
+        int height = (int) (baseHeight * 0.90);
+
+        JPanel panelPedido = new JPanel(new BorderLayout(30, 0));
         panelPedido.setBackground(new Color(255, 255, 255, 225));
         panelPedido.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(255, 162, 130), 3, true),
-                BorderFactory.createEmptyBorder(16, 28, 16, 28)
+                BorderFactory.createEmptyBorder(15, 26, 15, 26)
         ));
-        // Altura variable
-        panelPedido.setMinimumSize(new Dimension(700, 120));
+        panelPedido.setMinimumSize(new Dimension(width, height));
+        panelPedido.setMaximumSize(new Dimension(1900, 240));
 
-        // Panel izquierdo: información del pedido
         JPanel panelInfo = new JPanel();
         panelInfo.setLayout(new BoxLayout(panelInfo, BoxLayout.Y_AXIS));
         panelInfo.setOpaque(false);
@@ -313,7 +313,7 @@ public class MenuPedidosAdministrador extends JFrame {
         String total = "$" + String.format("%.2f", pedido.getTotal());
 
         JLabel lblTitulo = new JLabel("Pedido #" + pedido.getId() + " | Cliente: " + cliente);
-        lblTitulo.setFont(new Font(FUENTE_BONITA, Font.BOLD, 22));
+        lblTitulo.setFont(new Font(FUENTE_BONITA, Font.BOLD, 21));
         lblTitulo.setForeground(new Color(176, 121, 4));
         lblTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
         panelInfo.add(lblTitulo);
@@ -339,7 +339,6 @@ public class MenuPedidosAdministrador extends JFrame {
 
         panelInfo.add(Box.createVerticalStrut(4));
 
-        // Productos/Promociones con mini-tarjeta
         JPanel panelItems = new JPanel();
         panelItems.setLayout(new BoxLayout(panelItems, BoxLayout.Y_AXIS));
         panelItems.setOpaque(false);
@@ -381,12 +380,12 @@ public class MenuPedidosAdministrador extends JFrame {
 
         panelPedido.add(panelInfo, BorderLayout.WEST);
 
-        // Panel DERECHO: Estado y combo de cambio estado
+        // Panel Derecho: Estado y combo de cambio estado
         JPanel panelEstado = new JPanel();
         panelEstado.setOpaque(false);
         panelEstado.setLayout(new BoxLayout(panelEstado, BoxLayout.Y_AXIS));
-        panelEstado.setPreferredSize(new Dimension(220, 180));
-        panelEstado.setMaximumSize(new Dimension(260, 180));
+        panelEstado.setPreferredSize(new Dimension(210, (int)(180*0.95)));
+        panelEstado.setMaximumSize(new Dimension(210, (int)(180*0.95)));
         panelEstado.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         panelEstado.add(Box.createVerticalGlue());
@@ -399,16 +398,22 @@ public class MenuPedidosAdministrador extends JFrame {
         panelEstadoLinea.add(lblEstado);
 
         JComboBox<EstadoPedidoEnum> comboEstado = new JComboBox<>(EstadoPedidoEnum.values());
-        comboEstado.setFont(new Font(FUENTE_BONITA, Font.PLAIN, 16));
+        comboEstado.setFont(new Font(FUENTE_BONITA, Font.PLAIN, 19));
         comboEstado.setSelectedItem(pedido.getEstado());
         comboEstado.setBackground(Color.WHITE);
-        comboEstado.setPreferredSize(new Dimension(120, 32));
+        comboEstado.setPreferredSize(new Dimension(160, 36)); // más ancho para mostrar completo
+        comboEstado.setMaximumRowCount(5);
+        DefaultListCellRenderer renderer = new DefaultListCellRenderer();
+        renderer.setFont(new Font(FUENTE_BONITA, Font.PLAIN, 19));
+        comboEstado.setRenderer(renderer);
+
         panelEstadoLinea.add(comboEstado);
 
         JButton btnCambiar = new JButton("Actualizar");
-        btnCambiar.setFont(new Font(FUENTE_BONITA, Font.BOLD, 15));
+        btnCambiar.setFont(new Font(FUENTE_BONITA, Font.BOLD, 20)); // Más grande
         btnCambiar.setBackground(new Color(181, 224, 202));
-        btnCambiar.setPreferredSize(new Dimension(110, 32));
+        btnCambiar.setPreferredSize(new Dimension(150, 45)); // Más ancho y alto
+        btnCambiar.setFocusPainted(false);
         btnCambiar.addActionListener(e -> {
             EstadoPedidoEnum seleccionado = (EstadoPedidoEnum) comboEstado.getSelectedItem();
             if (seleccionado != pedido.getEstado()) {

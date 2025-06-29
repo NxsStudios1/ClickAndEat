@@ -35,4 +35,5 @@ public class Producto extends Entidad {
 
     @OneToMany(mappedBy = "producto")
     private List<PromocionProducto> promociones;
+
 }

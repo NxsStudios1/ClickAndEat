@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana.adminSwing.menuPromociones;
+package org.clickandeat.vista.ventana.adminSwing.administracion;
 
 import org.clickandeat.funciones.administracion.PromocionProductoServicio;
 import org.clickandeat.funciones.administracion.PromocionServicio;
@@ -60,19 +60,19 @@ public class PanelPromociones extends JPanel {
         }
 
         // Ajuste de anchos de columna
-        tabla.getColumnModel().getColumn(0).setPreferredWidth(40);   // Id (más pequeña)
-        tabla.getColumnModel().getColumn(1).setPreferredWidth(160);  // Nombre (más grande)
-        tabla.getColumnModel().getColumn(2).setPreferredWidth(200);  // Descripción (más grande)
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(40);   // Id
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(160);  // Nombre
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(200);  // Descripción
         tabla.getColumnModel().getColumn(3).setPreferredWidth(100);  // Fecha Inicio
         tabla.getColumnModel().getColumn(4).setPreferredWidth(100);  // Fecha Fin
-        tabla.getColumnModel().getColumn(5).setPreferredWidth(65);   // Precio (más pequeña)
-        tabla.getColumnModel().getColumn(6).setPreferredWidth(220);  // Productos (más grande)
-        tabla.getColumnModel().getColumn(7).setPreferredWidth(60);   // Disponible (un poco más pequeña)
+        tabla.getColumnModel().getColumn(5).setPreferredWidth(65);   // Precio
+        tabla.getColumnModel().getColumn(6).setPreferredWidth(220);  // Productos
+        tabla.getColumnModel().getColumn(7).setPreferredWidth(60);   // Disponible
 
         JScrollPane scroll = new JScrollPane(tabla);
         scroll.setPreferredSize(new Dimension(1100, 320));
 
-        // Botones CRUD + Consulta con estilo uniforme
+        // Botones CRUD
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 24, 12));
         panelBotones.setOpaque(false);
 

@@ -8,8 +8,11 @@ import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.Categor
 import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.ProductoDao;
 import org.clickandeat.modelo.baseDatos.dao.implementacion.pedidoDao.PedidoDao;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-import org.clickandeat.vista.ventana.adminSwing.menuProducto.MenuAdministracion;
-import org.clickandeat.vista.ventana.inicioSwing.InicioSesionSwing;
+import org.clickandeat.vista.ventana.adminSwing.comentario.MenuComentariosAdministrador;
+import org.clickandeat.vista.ventana.adminSwing.inventario.MenuInventario;
+import org.clickandeat.vista.ventana.adminSwing.administracion.MenuAdministracion;
+import org.clickandeat.vista.ventana.adminSwing.pedidos.MenuPedidos;
+import org.clickandeat.vista.ventana.inicioSwing.InicioSesion;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +22,6 @@ public class MenuAdministrador extends JFrame {
     private final Usuario admin;
     private final UsuarioServicio usuarioServicio;
     private final JFrame ventanaAnterior;
-
-    // Servicios para pasar a otras ventanas
     private final CategoriaProductoServicio categoriaServicio;
     private final ProductoServicio productoServicio;
     private final PedidoServicio pedidoServicio;
@@ -29,8 +30,6 @@ public class MenuAdministrador extends JFrame {
         this.admin = admin;
         this.usuarioServicio = usuarioServicio;
         this.ventanaAnterior = ventanaAnterior;
-
-        // Crear los servicios una sola vez
         this.categoriaServicio = new CategoriaProductoServicio(new CategoriaProductoDao());
         this.productoServicio = new ProductoServicio(new ProductoDao());
         this.pedidoServicio = new PedidoServicio(new PedidoDao());
@@ -42,13 +41,13 @@ public class MenuAdministrador extends JFrame {
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // PANEL IZQUIERDO (sidebar)
+        // Panel Izquierdo (sidebar)
         JPanel panelIzquierdo = new JPanel();
         panelIzquierdo.setBackground(new Color(255, 162, 130));
         panelIzquierdo.setPreferredSize(new Dimension(270, 830));
         panelIzquierdo.setLayout(new BorderLayout());
 
-        // Panel de arriba (logo + linea)
+        // Panel de arriba
         JPanel panelArriba = new JPanel(new BorderLayout());
         panelArriba.setOpaque(false);
 
@@ -66,7 +65,7 @@ public class MenuAdministrador extends JFrame {
 
         panelIzquierdo.add(panelArriba, BorderLayout.NORTH);
 
-        // Panel de botones menú (GridBagLayout para centrar)
+        // Panel de botones menú
         JPanel panelBotones = new JPanel(new GridBagLayout());
         panelBotones.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -143,11 +142,10 @@ public class MenuAdministrador extends JFrame {
             if (ventanaAnterior != null) {
                 ventanaAnterior.setVisible(true);
             } else {
-                new InicioSesionSwing(usuarioServicio, null).setVisible(true);
+                new InicioSesion(usuarioServicio, null).setVisible(true);
             }
         });
 
-        // PANEL DERECHO - Fondo amarillo claro
         JPanel panelDerecho = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -157,7 +155,7 @@ public class MenuAdministrador extends JFrame {
             }
         };
 
-        // BARRA SUPERIOR verde claro
+        // Barra Superior Verde Claro
         JPanel panelSuperior = new JPanel(null) {
             @Override
             public boolean isOpaque() { return true; }
@@ -179,7 +177,7 @@ public class MenuAdministrador extends JFrame {
 
         panelDerecho.add(panelSuperior, BorderLayout.NORTH);
 
-        // PANEL CENTRAL (contenido centrado)
+        // Panel Central
         JPanel panelCentral = new JPanel(null) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -236,8 +234,6 @@ public class MenuAdministrador extends JFrame {
         panelCentral.add(lblMotivacion, gc);
 
         panelDerecho.add(panelCentral, BorderLayout.CENTER);
-
-        // Añadir ambos al principal
         panelPrincipal.add(panelIzquierdo, BorderLayout.WEST);
         panelPrincipal.add(panelDerecho, BorderLayout.CENTER);
 
@@ -251,15 +247,15 @@ public class MenuAdministrador extends JFrame {
             });
         }
 
-        // Acción del botón Pedidos (AQUÍ SE AGREGA LA ACCIÓN)
+        // Acción del botón Pedidos
         if (btnPedidos != null) {
             btnPedidos.addActionListener(e -> {
                 this.setVisible(false);
-                new MenuPedidosAdministrador(admin, usuarioServicio, this).setVisible(true);
+                new MenuPedidos(admin, usuarioServicio, this).setVisible(true);
             });
         }
 
-        // Acción del botón Comentarios (administrador)
+        // Acción del botón Comentarios
         if (btnComentarios != null) {
             btnComentarios.addActionListener(e -> {
                 this.setVisible(false);
@@ -271,7 +267,6 @@ public class MenuAdministrador extends JFrame {
         if (btnAdministracionMenu != null) {
             btnAdministracionMenu.addActionListener(e -> {
                 this.setVisible(false);
-                // Pasa las referencias necesarias para navegación circular
                 new MenuAdministracion(admin, usuarioServicio, this).setVisible(true);
 
             });

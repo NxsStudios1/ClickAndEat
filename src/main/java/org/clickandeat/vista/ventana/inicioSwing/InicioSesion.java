@@ -11,11 +11,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class InicioSesionSwing extends JFrame {
+public class InicioSesion extends JFrame {
     private final UsuarioServicio usuarioServicio;
     private final JFrame ventanaBienvenida;
 
-    public InicioSesionSwing (UsuarioServicio usuarioServicio, JFrame ventanaBienvenida) {
+    public InicioSesion(UsuarioServicio usuarioServicio, JFrame ventanaBienvenida) {
         this.usuarioServicio = usuarioServicio;
         this.ventanaBienvenida = ventanaBienvenida;
         setTitle("Inicio Sesión - AndyBurger");
@@ -27,7 +27,7 @@ public class InicioSesionSwing extends JFrame {
         JPanel panel = new FondoAndyBurger();
         panel.setLayout(null);
 
-        // Botón "Regresar" arriba derecha
+        // Botón "Regresar"
         JPanel regresarPanel = new JPanel(null);
         regresarPanel.setBackground(new Color(255, 191, 73));
         regresarPanel.setBounds(720, 10, 70, 32);
@@ -41,12 +41,12 @@ public class InicioSesionSwing extends JFrame {
         lblRegresar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                InicioSesionSwing.this.dispose();
+                InicioSesion.this.dispose();
                 if (ventanaBienvenida != null) ventanaBienvenida.setVisible(true);
             }
         });
 
-        // Panel centrar recuadro (hamburguesa + formulario)
+        // Panel centrar recuadro
         JPanel centerPanel = new JPanel(null);
         centerPanel.setOpaque(false);
         centerPanel.setBounds(130, 50, 560, 370);
@@ -104,7 +104,7 @@ public class InicioSesionSwing extends JFrame {
 
         panel.add(centerPanel);
 
-        // Etiqueta de registro abajo
+        // Etiqueta de registro
         JLabel lblRegistro = new JLabel("¿ No te has Registrado ? Haz Click para Registrarte.", SwingConstants.CENTER);
         lblRegistro.setOpaque(true);
         lblRegistro.setBackground(new Color(255, 191, 73));
@@ -113,16 +113,16 @@ public class InicioSesionSwing extends JFrame {
         lblRegistro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel.add(lblRegistro);
 
-        // Acción: REGISTRO
+        // REGISTRO
         lblRegistro.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new RegistroSwing(InicioSesionSwing.this, usuarioServicio).setVisible(true);
+                new Registro(InicioSesion.this, usuarioServicio).setVisible(true);
                 setVisible(false);
             }
         });
 
-        // Acción: INICIAR SESIÓN
+        // INICIAR SESIÓN
         btnIniciar.addActionListener(e -> {
             String telefono = txtTelefono.getText();
             String contrasena = new String(txtContra.getPassword());
@@ -140,7 +140,7 @@ public class InicioSesionSwing extends JFrame {
                     JOptionPane.showMessageDialog(this, "Rol no Reconocido .");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, " ❌ --> Teléfono o Contraseña Incorrectos.");
+                JOptionPane.showMessageDialog(this, "Teléfono o Contraseña Incorrectos.");
             }
         });
 
@@ -148,11 +148,12 @@ public class InicioSesionSwing extends JFrame {
     }
 
     // Panel de fondo personalizado
-    class FondoAndyBurger extends JPanel {
+    public class FondoAndyBurger extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             setBackground(new Color(255, 239, 155)); // Fondo amarillo claro
         }
     }
+
 }

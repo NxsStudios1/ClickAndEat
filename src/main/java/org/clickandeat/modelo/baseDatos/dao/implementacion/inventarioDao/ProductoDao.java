@@ -8,6 +8,7 @@ import java.util.List;
 import static org.clickandeat.modelo.baseDatos.hibernate.HibernateUtil.getSession;
 
 public class ProductoDao extends DaoImpl <Producto> {
+
     public ProductoDao(){
         super(Producto.class);
     }

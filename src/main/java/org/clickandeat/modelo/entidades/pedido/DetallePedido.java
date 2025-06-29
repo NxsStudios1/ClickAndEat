@@ -40,4 +40,5 @@ public class DetallePedido extends Entidad {
     @ManyToOne
     @JoinColumn(name = "idPedido", nullable = false)
     private Pedido pedido;
+
 }

@@ -41,4 +41,5 @@ public class Promocion extends Entidad {
 
     @OneToMany(mappedBy = "promocion")
     private List<PromocionProducto> productos;
+
 }

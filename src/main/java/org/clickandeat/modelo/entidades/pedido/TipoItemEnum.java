@@ -1,6 +1,7 @@
 package org.clickandeat.modelo.entidades.pedido;
 
 public enum TipoItemEnum {
+
     PRODUCTO(1),
     PROMOCION(2);
 
@@ -20,4 +21,5 @@ public enum TipoItemEnum {
         }
         return null;
     }
+
 }

@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class DaoImpl<T extends Entidad> implements DaoInterface<T> {
+
     private final Class<T> claseEntidad;
 
     protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

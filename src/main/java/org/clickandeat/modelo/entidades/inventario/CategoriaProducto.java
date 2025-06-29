@@ -29,4 +29,5 @@ public class CategoriaProducto extends Entidad {
     public String toString() {
         return nombre;
     }
+
 }

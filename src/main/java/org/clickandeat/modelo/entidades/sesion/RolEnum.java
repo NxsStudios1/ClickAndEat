@@ -1,6 +1,7 @@
 package org.clickandeat.modelo.entidades.sesion;
 
 public enum RolEnum {
+
     CLIENTE(1),
     ADMINISTRADOR(2);
 
@@ -20,4 +21,5 @@ public enum RolEnum {
         }
         return null;
     }
+
 }

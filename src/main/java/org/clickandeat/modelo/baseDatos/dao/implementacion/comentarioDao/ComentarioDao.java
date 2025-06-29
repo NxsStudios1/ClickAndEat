@@ -23,4 +23,5 @@ public class ComentarioDao extends DaoImpl<Comentario> {
             session.close();
         }
     }
+
 }

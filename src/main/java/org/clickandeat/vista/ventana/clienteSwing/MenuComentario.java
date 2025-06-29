@@ -2,41 +2,42 @@ package org.clickandeat.vista.ventana.clienteSwing;
 
 import org.clickandeat.funciones.administracion.ProductoServicio;
 import org.clickandeat.funciones.administracion.PromocionServicio;
+import org.clickandeat.funciones.cliente.ComentarioServicio;
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
 import org.clickandeat.funciones.restaurante.PedidoServicio;
+import org.clickandeat.modelo.baseDatos.dao.implementacion.comentarioDao.ComentarioDao;
 import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.ProductoDao;
 import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.PromocionDao;
 import org.clickandeat.modelo.baseDatos.dao.implementacion.pedidoDao.PedidoDao;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-import org.clickandeat.vista.ventana.inicioSwing.InicioSesion;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuCliente extends JFrame {
+public class MenuComentario extends JFrame {
     private static final String FUENTE_BONITA = "Comic Sans MS";
+    private final JPanel panelComentarios;
+    private final ComentarioServicio comentarioServicio;
     private final Usuario cliente;
     private final UsuarioServicio usuarioServicio;
     private final JFrame ventanaBienvenida;
-    private final ProductoServicio productoServicio = new ProductoServicio(new ProductoDao());
-    private final PromocionServicio promocionServicio = new PromocionServicio(new PromocionDao());
-    private final PedidoServicio pedidoServicio = new PedidoServicio(new PedidoDao());
 
-    public MenuCliente(Usuario cliente, UsuarioServicio usuarioServicio, JFrame ventanaBienvenida) {
+    public MenuComentario(Usuario cliente, UsuarioServicio usuarioServicio, JFrame ventanaBienvenida) {
         this.cliente = cliente;
         this.usuarioServicio = usuarioServicio;
         this.ventanaBienvenida = ventanaBienvenida;
+        this.comentarioServicio = new ComentarioServicio(new ComentarioDao());
 
-        setTitle("Panel Principal - Andy Burger");
+        setTitle("Comentarios AndyBurger");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(true);
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // Panel izquierdo (sidebar)
+        // Panel izuqierdo (sidebar)
         JPanel panelIzquierdo = new JPanel();
-        panelIzquierdo.setBackground(new Color(186, 240, 215)); // Verde pastel
+        panelIzquierdo.setBackground(new Color(186, 240, 215));
         panelIzquierdo.setPreferredSize(new Dimension(320, 830));
         panelIzquierdo.setLayout(new BorderLayout());
 
@@ -70,47 +71,43 @@ public class MenuCliente extends JFrame {
         btnMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.BLACK));
         btnMenu.setHorizontalAlignment(SwingConstants.CENTER);
 
+        btnMenu.addActionListener(e -> {
+            ProductoServicio productoServicio = new ProductoServicio(new ProductoDao());
+            PromocionServicio promocionServicio = new PromocionServicio(new PromocionDao());
+            PedidoServicio pedidoServicio = new PedidoServicio(new PedidoDao());
+
+            MenuRestaurante menuRestaurante = new MenuRestaurante(
+                    cliente,
+                    productoServicio,
+                    promocionServicio,
+                    pedidoServicio,
+                    ventanaBienvenida,
+                    usuarioServicio
+            );
+            menuRestaurante.setVisible(true);
+            this.dispose();
+        });
+
         JButton btnComentarios = new JButton("Comentarios");
         btnComentarios.setFont(new Font(FUENTE_BONITA, Font.BOLD, 38));
         btnComentarios.setBackground(new Color(186, 240, 215));
         btnComentarios.setFocusPainted(false);
         btnComentarios.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.BLACK));
         btnComentarios.setHorizontalAlignment(SwingConstants.CENTER);
+        btnComentarios.setEnabled(false);
 
         panelBotones.add(btnMenu);
         panelBotones.add(btnComentarios);
 
-        // Acción para abrir MenuRestaurante
-        btnMenu.addActionListener(e -> {
-            MenuRestaurante menuRestaurante = new MenuRestaurante(
-                    cliente,
-                    productoServicio,
-                    promocionServicio,
-                    pedidoServicio,
-                    ventanaBienvenida
-            );
-            menuRestaurante.setVisible(true);
-            this.dispose();
-        });
-
-        // Acción para abrir MenuComentariosClienteSwing
-        btnComentarios.addActionListener(e -> {
-            MenuComentario ventanaComentarios = new MenuComentario(
-                    cliente, usuarioServicio, ventanaBienvenida
-            );
-            ventanaComentarios.setVisible(true);
-            this.dispose();
-        });
-
         panelIzquierdo.add(panelBotones, BorderLayout.CENTER);
 
-        // Línea inferior antes del usuario
+        // Línea inferior
         JSeparator separatorInf = new JSeparator(SwingConstants.HORIZONTAL);
         separatorInf.setForeground(Color.BLACK);
         separatorInf.setPreferredSize(new Dimension(320, 3));
         panelIzquierdo.add(separatorInf, BorderLayout.SOUTH);
 
-        // Panel usuario abajo
+        // Panel usuario
         JPanel panelUsuario = new JPanel(null);
         panelUsuario.setBackground(new Color(186, 240, 215));
         panelUsuario.setPreferredSize(new Dimension(320, 100));
@@ -126,29 +123,16 @@ public class MenuCliente extends JFrame {
         panelUsuario.add(lblCliente);
 
         ImageIcon iconoSalir = new ImageIcon(getClass().getResource("/recursosGraficos/iconos/salir.png"));
-        JButton btnSalir = new JButton(new ImageIcon(iconoSalir.getImage().getScaledInstance(38, 38, Image.SCALE_SMOOTH)));
-        btnSalir.setBounds(250, 38, 38, 38);
-        btnSalir.setBorderPainted(false);
-        btnSalir.setFocusPainted(false);
-        btnSalir.setContentAreaFilled(false);
-        btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panelUsuario.add(btnSalir);
-
-        btnSalir.addActionListener(e -> {
-            this.dispose();
-            if (ventanaBienvenida != null) {
-                ventanaBienvenida.setVisible(true);
-            } else {
-                new InicioSesion(usuarioServicio, null).setVisible(true);
-            }
-        });
+        JLabel lblSalir = new JLabel(new ImageIcon(iconoSalir.getImage().getScaledInstance(38, 38, Image.SCALE_SMOOTH)));
+        lblSalir.setBounds(250, 38, 38, 38);
+        panelUsuario.add(lblSalir);
 
         JPanel panelUsuarioCont = new JPanel(new BorderLayout());
         panelUsuarioCont.setOpaque(false);
         panelUsuarioCont.add(panelUsuario, BorderLayout.CENTER);
         panelIzquierdo.add(panelUsuarioCont, BorderLayout.SOUTH);
 
-        // PANEL DERECHO
+        // Panel Derecho
         JPanel panelDerecho = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -158,6 +142,7 @@ public class MenuCliente extends JFrame {
             }
         };
 
+        // Barra superior
         JPanel panelSuperior = new JPanel(null) {
             @Override
             public boolean isOpaque() { return true; }
@@ -165,75 +150,88 @@ public class MenuCliente extends JFrame {
         panelSuperior.setBackground(new Color(190, 235, 255));
         panelSuperior.setPreferredSize(new Dimension(0, 48));
 
-        JLabel lblPanel = new JLabel("Panel Principal");
+        JLabel lblPanel = new JLabel("Comentarios AndyBurger");
         lblPanel.setFont(new Font(FUENTE_BONITA, Font.BOLD, 28));
         lblPanel.setForeground(Color.BLACK);
-        lblPanel.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblPanel.setBounds(panelSuperior.getPreferredSize().width - 310, 8, 300, 36);
+        lblPanel.setBounds(panelSuperior.getPreferredSize().width - 360, 8, 360, 32);
         panelSuperior.add(lblPanel);
 
         panelSuperior.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                lblPanel.setBounds(panelSuperior.getWidth() - 310, 8, 300, 36);
+                lblPanel.setBounds(panelSuperior.getWidth() - 360, 8, 360, 32);
             }
         });
 
         panelDerecho.add(panelSuperior, BorderLayout.NORTH);
 
-        JPanel panelCentral = new JPanel(new GridBagLayout()) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(new Color(246, 227, 203));
-                g.fillRect(0, 0, getWidth(), getHeight());
-            }
-        };
+        // Panel Central (comentarios)
+        panelComentarios = new JPanel();
+        panelComentarios.setOpaque(false);
+        panelComentarios.setLayout(new BoxLayout(panelComentarios, BoxLayout.Y_AXIS));
 
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = 0; gc.gridy = 0; gc.insets = new Insets(0, 0, 22, 0);
+        JScrollPane scrollComentarios = new JScrollPane(panelComentarios);
+        scrollComentarios.setOpaque(false);
+        scrollComentarios.getViewport().setOpaque(false);
+        scrollComentarios.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollComentarios.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        JLabel lblBienvenido = new JLabel("¡¡¡ Bienvenido !!!", SwingConstants.CENTER);
-        lblBienvenido.setFont(new Font(FUENTE_BONITA, Font.BOLD, 66));
-        panelCentral.add(lblBienvenido, gc);
+        JPanel panelCentral = new JPanel(new BorderLayout());
+        panelCentral.setOpaque(false);
 
-        gc.gridy++;
-        JLabel lblNombre = new JLabel("\"" + (cliente != null ? cliente.getNombre() : "Cliente") + "\"", SwingConstants.CENTER);
-        lblNombre.setFont(new Font(FUENTE_BONITA, Font.BOLD, 66));
-        panelCentral.add(lblNombre, gc);
-
-        gc.gridy++;
-        gc.insets = new Insets(46, 0, 46, 0);
-
-        JPanel logoAndyPanel = new JPanel(new BorderLayout()) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(new Color(246, 227, 203));
-                g.fillRoundRect(0, 0, getWidth(), getHeight(), 90, 90);
-            }
-        };
-        logoAndyPanel.setPreferredSize(new Dimension(600, 400));
-        logoAndyPanel.setOpaque(false);
-
-        JLabel lblLogoCentral = new JLabel();
+        // Logo centrado arriba
+        JLabel lblLogoCentral = new JLabel(new ImageIcon(logo.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
         lblLogoCentral.setHorizontalAlignment(SwingConstants.CENTER);
-        lblLogoCentral.setVerticalAlignment(SwingConstants.CENTER);
-        lblLogoCentral.setIcon(new ImageIcon(logo.getImage().getScaledInstance(355, 270, Image.SCALE_SMOOTH)));
-        logoAndyPanel.add(lblLogoCentral, BorderLayout.CENTER);
+        lblLogoCentral.setBorder(BorderFactory.createEmptyBorder(12,0,8,0));
+        panelCentral.add(lblLogoCentral, BorderLayout.NORTH);
 
-        panelCentral.add(logoAndyPanel, gc);
+        panelCentral.add(scrollComentarios, BorderLayout.CENTER);
 
-        gc.gridy++;
-        gc.insets = new Insets(56, 0, 0, 0);
-        JLabel lblMotivacion = new JLabel("¡Hoy es un gran día para consentir tu antojo!", SwingConstants.CENTER);
-        lblMotivacion.setFont(new Font(FUENTE_BONITA, Font.BOLD, 44));
-        panelCentral.add(lblMotivacion, gc);
+        // Panel botón inferior (centrado)
+        JPanel panelBoton = new JPanel(new GridBagLayout());
+        panelBoton.setBackground(new Color(247, 246, 210));
+        panelBoton.setPreferredSize(new Dimension(0, 70));
+        JButton btnAgregarComentario = new JButton("Agregar Comentario");
+        btnAgregarComentario.setFont(new Font(FUENTE_BONITA, Font.BOLD, 20));
+        btnAgregarComentario.setBackground(new Color(255, 148, 195));
+        btnAgregarComentario.setForeground(Color.BLACK);
+        btnAgregarComentario.setFocusPainted(false);
+        btnAgregarComentario.setPreferredSize(new Dimension(300, 40));
+        // Centrar el botón usando GridBagConstraints
+        GridBagConstraints gbcBtn = new GridBagConstraints();
+        gbcBtn.gridx = 0;
+        gbcBtn.gridy = 0;
+        gbcBtn.anchor = GridBagConstraints.CENTER;
+        panelBoton.add(btnAgregarComentario, gbcBtn);
 
         panelDerecho.add(panelCentral, BorderLayout.CENTER);
+        panelDerecho.add(panelBoton, BorderLayout.SOUTH);
 
         panelPrincipal.add(panelIzquierdo, BorderLayout.WEST);
         panelPrincipal.add(panelDerecho, BorderLayout.CENTER);
 
         setContentPane(panelPrincipal);
+
+        // Pantalla grande
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        recargarComentarios();
+
+        btnAgregarComentario.addActionListener(e -> agregarComentarioBonito());
+
+        lblSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dispose();
+                new MenuCliente(cliente, usuarioServicio, ventanaBienvenida).setVisible(true);
+            }
+        });
+    }
+
+    private void recargarComentarios() {
+        ComentariosClienteUtils.recargarComentarios(panelComentarios, comentarioServicio, cliente, this);
+    }
+
+    private void agregarComentarioBonito() {
+        ComentariosClienteUtils.agregarComentarioBonito(this, comentarioServicio, cliente, panelComentarios, this);
     }
 }

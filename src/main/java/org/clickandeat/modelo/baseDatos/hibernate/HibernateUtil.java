@@ -6,8 +6,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public final class HibernateUtil
-{
+public final class HibernateUtil {
+
     private static SessionFactory sessionFactory;
     private static StandardServiceRegistry registry;
 

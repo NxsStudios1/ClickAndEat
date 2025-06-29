@@ -7,11 +7,11 @@ import java.util.List;
 import org.hibernate.Session;
 
 public class PedidoDao extends DaoImpl<Pedido> {
+
     public PedidoDao(){
         super(Pedido.class);
     }
 
-    // Este método ahora carga los detalles con JOIN FETCH:
     public List<Pedido> obtenerTodos() {
         Session session = openSession();
         List<Pedido> lista = null;

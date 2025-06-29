@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TicketDialog extends JDialog {
+
     public TicketDialog(Frame parent, String ticketText) {
         super(parent, "Ticket", true);
 

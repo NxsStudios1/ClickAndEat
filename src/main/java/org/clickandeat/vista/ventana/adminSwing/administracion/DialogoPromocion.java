@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana.adminSwing.menuPromociones;
+package org.clickandeat.vista.ventana.adminSwing.administracion;
 
 import org.clickandeat.funciones.administracion.PromocionProductoServicio;
 import org.clickandeat.funciones.administracion.PromocionServicio;
@@ -14,34 +14,18 @@ import java.util.*;
 import java.util.List;
 
 public class DialogoPromocion {
-    // Formulario para Alta
-    public static void mostrarDialogoAlta(JFrame parent,
-                                          PromocionServicio promocionServicio,
-                                          ProductoServicio productoServicio,
-                                          PromocionProductoServicio promocionProductoServicio,
-                                          PromocionTableModel tableModel) {
-
+    // Alta
+    public static void mostrarDialogoAlta(JFrame parent, PromocionServicio promocionServicio, ProductoServicio productoServicio, PromocionProductoServicio promocionProductoServicio, PromocionTableModel tableModel) {
         mostrarDialogoFormulario(parent, promocionServicio, productoServicio, promocionProductoServicio, tableModel, null);
     }
 
-    // Formulario para Edición
-    public static void mostrarDialogoEdicion(JFrame parent,
-                                             PromocionServicio promocionServicio,
-                                             ProductoServicio productoServicio,
-                                             PromocionProductoServicio promocionProductoServicio,
-                                             PromocionTableModel tableModel,
-                                             Promocion promo) {
-
+    // Edición
+    public static void mostrarDialogoEdicion(JFrame parent, PromocionServicio promocionServicio, ProductoServicio productoServicio, PromocionProductoServicio promocionProductoServicio, PromocionTableModel tableModel, Promocion promo) {
         mostrarDialogoFormulario(parent, promocionServicio, productoServicio, promocionProductoServicio, tableModel, promo);
     }
 
-    // Formulario general con DISEÑO UNIFORME y SCROLL
-    private static void mostrarDialogoFormulario(JFrame parent,
-                                                 PromocionServicio promocionServicio,
-                                                 ProductoServicio productoServicio,
-                                                 PromocionProductoServicio promocionProductoServicio,
-                                                 PromocionTableModel tableModel,
-                                                 Promocion promoEditar) {
+    // Formulario general
+    private static void mostrarDialogoFormulario(JFrame parent, PromocionServicio promocionServicio, ProductoServicio productoServicio, PromocionProductoServicio promocionProductoServicio, PromocionTableModel tableModel, Promocion promoEditar) {
         boolean esEdicion = promoEditar != null;
 
         // Fuentes y colores
@@ -73,7 +57,7 @@ public class DialogoPromocion {
             }
         }
 
-        // Panel productos con scroll (vertical si hay muchos)
+        // Panel productos con scroll
         JPanel panelProductos = new JPanel();
         panelProductos.setLayout(new BoxLayout(panelProductos, BoxLayout.Y_AXIS));
         panelProductos.setBackground(fondo);
@@ -113,7 +97,7 @@ public class DialogoPromocion {
             panelProductos.add(fila);
         }
 
-        // Panel principal de datos (GridBag para etiquetas/campos alineados)
+        // Panel principal de datos
         JPanel panelCampos = new JPanel(new GridBagLayout());
         panelCampos.setBackground(fondo);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -136,7 +120,7 @@ public class DialogoPromocion {
         panelCampos.add(txtNombre, gbc);
         gbc.gridx = 0; gbc.gridy++;
 
-        // Descripción (area scrollable)
+        // Descripción
         JLabel lblDescripcion = new JLabel("Descripción:");
         lblDescripcion.setFont(labelFont);
         panelCampos.add(lblDescripcion, gbc);
@@ -171,7 +155,7 @@ public class DialogoPromocion {
         panelCampos.add(txtPrecio, gbc);
         gbc.gridx = 0; gbc.gridy++;
 
-        // Productos (en scroll si hay muchos)
+        // Productos
         gbc.gridwidth = 2;
         panelCampos.add(panelProductos, gbc);
         gbc.gridwidth = 1;
@@ -297,7 +281,7 @@ public class DialogoPromocion {
         dialog.setVisible(true);
     }
 
-    // ----------- Consulta, estilo uniforme a otros menús -----------
+    // Consulta
 
     public static void mostrarDialogoConsulta(JFrame parent, Promocion promocion) {
         JDialog dialog = new JDialog(parent, "Consulta de Promoción", true);
@@ -347,7 +331,7 @@ public class DialogoPromocion {
         }
         areaDescripcion.setFont(valueFont);
 
-        // Agregar campos (incluye área de descripción)
+        // Agregar campos
         panelCampos.add(lblId, gbc); gbc.gridx++;
         panelCampos.add(lblIdValor, gbc); gbc.gridx = 0; gbc.gridy++;
         panelCampos.add(lblNombre, gbc); gbc.gridx++;
@@ -391,7 +375,7 @@ public class DialogoPromocion {
         panelProductos.add(lblProductos, BorderLayout.NORTH);
         panelProductos.add(scrollProductos, BorderLayout.CENTER);
 
-        // Panel principal con ambos paneles (campos + productos)
+        // Panel principal con ambos paneles
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(new Color(246, 227, 203));
@@ -399,7 +383,7 @@ public class DialogoPromocion {
         mainPanel.add(Box.createVerticalStrut(14));
         mainPanel.add(panelProductos);
 
-        // Scroll para todo el contenido, menos el botón
+        // Scroll para el contenido , pero sin llevarnos el boton
         JScrollPane scrollPanel = new JScrollPane(mainPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setBorder(null);
         scrollPanel.getVerticalScrollBar().setUnitIncrement(16);

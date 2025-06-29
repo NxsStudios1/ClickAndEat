@@ -20,7 +20,6 @@ public class PedidoServicio {
         return pedidoDao.actualizar(pedido);
     }
 
-    // Método para obtener todos los pedidos
     public List<Pedido> obtenerTodos() {
         return pedidoDao.obtenerTodos();
     }

@@ -18,7 +18,6 @@ public class RespuestaComentarioServicio {
         boolean ok = respuestaComentarioDao.guardar(respuestaComentario);
         if (!ok)
             return "Ocurrió un Error al Guardar la Respuesta en la Base de Datos.";
-
         return null;
     }
 }

@@ -17,7 +17,7 @@ public class UsuarioServicio {
 
     public boolean registrarUsuario(String nombre, String telefono, String contrasena, RolEnum tipoRol) {
         if (usuarioDao.findByTelefono(telefono) != null) {
-            return false; // Usuario ya existe
+            return false;
         }
         Rol rol = rolDao.findByTipo(tipoRol);
         if (rol == null) {

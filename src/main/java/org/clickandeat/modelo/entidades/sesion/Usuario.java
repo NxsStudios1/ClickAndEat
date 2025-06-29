@@ -46,4 +46,5 @@ public class Usuario extends Entidad {
     public String toString() {
         return nombre + " (" + telefono + ")";
     }
+
 }

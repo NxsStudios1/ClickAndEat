@@ -1,7 +1,6 @@
 package org.clickandeat.funciones.administracion;
 
 import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.IngredienteDao;
-import org.clickandeat.modelo.entidades.comentario.Comentario;
 import org.clickandeat.modelo.entidades.inventario.Ingrediente;
 
 import java.util.List;

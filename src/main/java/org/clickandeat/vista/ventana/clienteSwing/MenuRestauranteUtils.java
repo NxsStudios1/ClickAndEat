@@ -322,8 +322,7 @@ public class MenuRestauranteUtils {
             ex.printStackTrace();
         }
         if (exito) {
-            // --- CENTRAR TICKET ---
-            int width = 52; // Ancho de ticket
+            int width = 52;
             StringBuilder ticket = new StringBuilder();
             java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -373,8 +372,6 @@ public class MenuRestauranteUtils {
             JOptionPane.showMessageDialog(parent, "Hubo un error al guardar el pedido.");
         }
     }
-
-    // Función utilitaria para centrar texto en el ticket
     private static String centerText(String text, int width) {
         if (text.length() >= width) return text;
         int left = (width - text.length()) / 2;

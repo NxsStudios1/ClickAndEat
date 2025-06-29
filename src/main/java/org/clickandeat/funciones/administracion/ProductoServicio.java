@@ -27,8 +27,4 @@ public class ProductoServicio {
         return productoDao.eliminar(producto);
     }
 
-    public boolean cambiarDisponibilidad(Producto producto, boolean disponible) {
-        producto.setDisponible(disponible);
-        return productoDao.actualizar(producto);
-    }
 }

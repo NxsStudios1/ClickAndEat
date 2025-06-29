@@ -24,18 +24,11 @@ public class MenuRestaurante extends JFrame {
     private final PedidoServicio pedidoServicio;
     private final JFrame ventanaBienvenida;
     private final UsuarioServicio usuarioServicio;
-
     private JScrollPane scrollPanelMenu;
-
-    // Carrito: DetallePedido (sin pedido asignado) y su cantidad
     private final List<DetallePedido> carrito = new ArrayList<>();
     private final DefaultListModel<String> listaCarritoModel = new DefaultListModel<>();
     private final JLabel lblTotal = new JLabel("$0.00");
-
-    // Observaciones del pedido
     private String observacionesPedido = "";
-
-    // Buscador y menú
     private JTextField txtBuscar;
     private JPanel panelMenu;
     private List<Producto> productosDisponibles;
@@ -60,11 +53,10 @@ public class MenuRestaurante extends JFrame {
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // --- PANEL IZQUIERDO (sidebar) ---
+        // Panel Izquierdo (sidebar)
         JPanel panelIzquierdo = crearSidebar();
 
-        // --- PANEL DERECHO: Carrito ---
-        // Observaciones referencia para el PanelCarrito util
+        // Panel Derecho : Carrito
         String[] observacionesRef = new String[]{observacionesPedido};
         JPanel panelCarrito = MenuRestauranteUtils.crearPanelCarrito(
                 FUENTE_BONITA,
@@ -79,14 +71,14 @@ public class MenuRestaurante extends JFrame {
                 () -> observacionesPedido = ""
         );
 
-        // --- PANEL CENTRAL: Menú de productos y promociones ---
+        // Panel Central: Menú de productos y promociones ---
         panelMenu = crearPanelMenu();
 
         scrollPanelMenu = new JScrollPane(panelMenu,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        // --- PANEL BUSCADOR ARRIBA DEL MENÚ ---
+        // Panel Buscador
         JPanel panelCentroConBuscador = new JPanel();
         panelCentroConBuscador.setLayout(new BorderLayout());
         panelCentroConBuscador.setBackground(panelMenu.getBackground());
@@ -157,7 +149,7 @@ public class MenuRestaurante extends JFrame {
         btnComentarios.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.BLACK));
         btnComentarios.setHorizontalAlignment(SwingConstants.CENTER);
         btnComentarios.addActionListener(e -> {
-            MenuComentariosCliente ventanaComentarios = new MenuComentariosCliente(cliente, usuarioServicio, ventanaBienvenida);
+            MenuComentario ventanaComentarios = new MenuComentario(cliente, usuarioServicio, ventanaBienvenida);
             ventanaComentarios.setVisible(true);
             this.dispose();
         });
@@ -219,7 +211,6 @@ public class MenuRestaurante extends JFrame {
         gbc.insets = new Insets(20, 20, 20, 20);
         gbc.gridx = 0; gbc.gridy = 0;
 
-        // Cargar listas completas solo una vez
         if (promocionesActivas == null) {
             promocionesActivas = promocionServicio.obtenerTodosConProductos().stream()
                     .filter(promo -> Boolean.TRUE.equals(promo.getActivo()))
@@ -397,4 +388,5 @@ public class MenuRestaurante extends JFrame {
     private void actualizarListaCarrito() {
         MenuRestauranteUtils.actualizarListaCarrito(carrito, listaCarritoModel, lblTotal);
     }
+
 }

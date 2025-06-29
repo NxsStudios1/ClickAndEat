@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana.adminSwing;
+package org.clickandeat.vista.ventana.adminSwing.comentario;
 
 import org.clickandeat.funciones.administracion.RespuestaComentarioServicio;
 import org.clickandeat.funciones.inicioSesion.UsuarioServicio;
@@ -6,8 +6,10 @@ import org.clickandeat.modelo.baseDatos.dao.implementacion.comentarioDao.Respues
 import org.clickandeat.modelo.entidades.comentario.Comentario;
 import org.clickandeat.modelo.entidades.comentario.RespuestaComentario;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-import org.clickandeat.vista.ventana.adminSwing.menuProducto.MenuAdministracion;
-import org.clickandeat.vista.ventana.inicioSwing.InicioSesionSwing;
+import org.clickandeat.vista.ventana.adminSwing.inventario.MenuInventario;
+import org.clickandeat.vista.ventana.adminSwing.administracion.MenuAdministracion;
+import org.clickandeat.vista.ventana.adminSwing.pedidos.MenuPedidos;
+import org.clickandeat.vista.ventana.inicioSwing.InicioSesion;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,13 +44,13 @@ public class MenuComentariosAdministrador extends JFrame {
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // === PANEL IZQUIERDO (SIDEBAR) ===
+        // Panel Izquierdo (Sidebar)
         JPanel panelIzquierdo = new JPanel();
         panelIzquierdo.setBackground(new Color(255, 162, 130));
         panelIzquierdo.setPreferredSize(new Dimension(270, 830));
         panelIzquierdo.setLayout(new BorderLayout());
 
-        // Panel de arriba (logo + linea)
+        // Panel de arriba
         JPanel panelArriba = new JPanel(new BorderLayout());
         panelArriba.setOpaque(false);
 
@@ -142,7 +144,7 @@ public class MenuComentariosAdministrador extends JFrame {
             if (menuAdministradorSwing != null) {
                 menuAdministradorSwing.setVisible(true);
             } else {
-                new InicioSesionSwing(usuarioServicio, null).setVisible(true);
+                new InicioSesion(usuarioServicio, null).setVisible(true);
             }
         });
 
@@ -158,7 +160,7 @@ public class MenuComentariosAdministrador extends JFrame {
         if (btnPedidos != null) {
             btnPedidos.addActionListener(e -> {
                 this.setVisible(false);
-                new MenuPedidosAdministrador(usuario, usuarioServicio, menuAdministradorSwing).setVisible(true);
+                new MenuPedidos(usuario, usuarioServicio, menuAdministradorSwing).setVisible(true);
             });
         }
 
@@ -200,7 +202,7 @@ public class MenuComentariosAdministrador extends JFrame {
 
         panelDerecho.add(panelSuperior, BorderLayout.NORTH);
 
-        // PANEL CENTRAL (comentarios)
+        // Panel Central (comentarios)
         panelComentarios = new JPanel();
         panelComentarios.setOpaque(false);
         panelComentarios.setLayout(new BoxLayout(panelComentarios, BoxLayout.Y_AXIS));
@@ -457,7 +459,7 @@ public class MenuComentariosAdministrador extends JFrame {
         return recuadroRespuesta;
     }
 
-    // RESPONDER COMENTARIO: diálogo personalizado con fondo amarillo, título naranja y botones adentro
+    // Responder Comentario
     private void responderComentario() {
         if (comentarioSeleccionado == null) {
             JOptionPane.showMessageDialog(this, "Selecciona un comentario para responder.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -518,7 +520,6 @@ public class MenuComentariosAdministrador extends JFrame {
         panelBotones.add(btnOK);
         panelBotones.add(btnCancel);
 
-        // Añadir todo al fondo
         panelFondo.add(panelTitulo);
         panelFondo.add(Box.createVerticalStrut(24));
         panelFondo.add(panelBlanco);
@@ -527,7 +528,7 @@ public class MenuComentariosAdministrador extends JFrame {
 
         dialog.setContentPane(panelFondo);
 
-        // Acción OK
+        // Acción
         btnOK.addActionListener(e -> {
             String contenidoRespuesta = areaRespuesta.getText().trim();
             if (contenidoRespuesta.isBlank()) {
@@ -549,7 +550,6 @@ public class MenuComentariosAdministrador extends JFrame {
                 JOptionPane.showMessageDialog(dialog, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
         // Acción Cancel
         btnCancel.addActionListener(e -> dialog.dispose());
 

@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana.adminSwing.menuProducto;
+package org.clickandeat.vista.ventana.adminSwing.administracion;
 
 import org.clickandeat.funciones.administracion.CategoriaProductoServicio;
 import org.clickandeat.funciones.administracion.ProductoServicio;
@@ -241,7 +241,7 @@ public class DialogoProducto {
 
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 2; gbc.insets = new Insets(36, 40, 18, 40);
 
-        // SCROLL + FONDO
+        // Scroll
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(new Color(246, 227, 203));
@@ -323,7 +323,7 @@ public class DialogoProducto {
         JPanel panel = crearPanelDialogo();
         GridBagConstraints gbc = crearGridBag();
 
-        // Título centrado y grande
+        // Título centrado
         JLabel lblTitulo = crearTitulo("Editar Producto");
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         gbc.gridy = 0; gbc.gridx = 0; gbc.gridwidth = 2; gbc.insets = new Insets(24, 20, 24, 20);
@@ -354,7 +354,7 @@ public class DialogoProducto {
 
         gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 2; gbc.insets = new Insets(36, 40, 18, 40);
 
-        // SCROLL + FONDO
+        // Scroll
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(new Color(246, 227, 203));
@@ -414,24 +414,6 @@ public class DialogoProducto {
                 productoTableModel.actualizarLista(productoServicio.obtenerTodos());
             } else {
                 JOptionPane.showMessageDialog(parent, "Error al eliminar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
-    public static void dialogDesactivarProducto(JFrame parent, ProductoServicio productoServicio, MenuAdministracion.ProductoTableModel productoTableModel, int row) {
-        Producto prod = productoTableModel.getProductoAt(row);
-        if (prod == null) {
-            JOptionPane.showMessageDialog(parent, "Selecciona un producto para desactivar.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        int conf = JOptionPane.showConfirmDialog(parent, "¿Seguro que deseas desactivar este producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
-        if (conf == JOptionPane.YES_OPTION) {
-            prod.setDisponible(false);
-            boolean exito = productoServicio.actualizarProducto(prod);
-            if (exito) {
-                productoTableModel.actualizarLista(productoServicio.obtenerTodos());
-            } else {
-                JOptionPane.showMessageDialog(parent, "Error al desactivar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

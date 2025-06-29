@@ -11,7 +11,6 @@ public class PromocionDao extends DaoImpl<Promocion> {
         super(Promocion.class);
     }
 
-    // Trae promociones con sus PromocionProducto y Producto asociados.
     public List<Promocion> findAllWithProductos() {
         Session session = openSession();
         try {
@@ -25,4 +24,5 @@ public class PromocionDao extends DaoImpl<Promocion> {
             session.close();
         }
     }
+
 }

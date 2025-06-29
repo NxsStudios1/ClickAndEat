@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana.adminSwing.menuPromociones;
+package org.clickandeat.vista.ventana.adminSwing.administracion;
 
 import org.clickandeat.modelo.entidades.inventario.Promocion;
 
@@ -54,7 +54,6 @@ public class PromocionTableModel extends AbstractTableModel {
                 boolean productosDisponibles = p.getProductos() != null && !p.getProductos().isEmpty()
                         && p.getProductos().stream().allMatch(pp ->
                         pp.getProducto() != null && Boolean.TRUE.equals(pp.getProducto().getDisponible()));
-                // Si quieres que el campo 'activo' también cuente (por ejemplo para promociones desactivadas manualmente) déjalo, si no, elimínalo de la ecuación
                 boolean disponible = vigente && productosDisponibles;
                 return disponible ? "Sí" : "No";
             default: return "";

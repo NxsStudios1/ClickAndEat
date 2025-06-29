@@ -28,4 +28,5 @@ public class Rol extends Entidad {
     public String toString() {
         return tipo != null ? tipo.name() : "Rol";
     }
+
 }

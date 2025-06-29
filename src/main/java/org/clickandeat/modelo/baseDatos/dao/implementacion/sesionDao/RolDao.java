@@ -22,6 +22,4 @@ public class RolDao extends DaoImpl<Rol> {
         }
     }
 
-    // Puedes agregar métodos personalizados aquí, por ejemplo:
-    // public Usuario buscarPorTelefono(String telefono) { ... }
 }

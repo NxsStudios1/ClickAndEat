@@ -14,9 +14,6 @@ public class PromocionServicio {
         this.promocionDao = promocionDao;
     }
 
-    /**
-     * Obtiene todas las promociones con sus productos asociados (evita LazyInitializationException)
-     */
     public List<Promocion> obtenerTodosConProductos() {
         List<Promocion> lista = promocionDao.findAllWithProductos();
         LocalDate ahora = LocalDate.now();
@@ -41,6 +38,13 @@ public class PromocionServicio {
     }
 
     public boolean actualizarPromocion(Promocion promocion, List<PromocionProducto> productosPromo, PromocionProductoServicio promoProdServ) {
+        LocalDate ahora = LocalDate.now();
+        if (promocion.getFechaFin() != null && promocion.getFechaFin().isBefore(ahora)) {
+            promocion.setActivo(false);
+        } else {
+            promocion.setActivo(true);
+        }
+
         boolean exito = promocionDao.actualizar(promocion);
         if (exito) {
             promoProdServ.eliminarPorPromocion(promocion); // elimina los viejos

@@ -1,6 +1,7 @@
 package org.clickandeat.modelo.entidades.comentario;
 
 public enum CategoriaComentarioEnum {
+
     COMIDA(1),
     SERVICIO(2),
     AMBIENTE(3),

@@ -8,9 +8,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class RegistroSwing extends JFrame {
+public class Registro  extends JFrame {
 
-    public RegistroSwing(JFrame ventanaLogin, UsuarioServicio usuarioServicio) {
+    public Registro(JFrame ventanaLogin, UsuarioServicio usuarioServicio) {
         setTitle("Registro Usuario - AndyBurger");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 650);
@@ -20,7 +20,8 @@ public class RegistroSwing extends JFrame {
         JPanel panel = new FondoAndyBurger();
         panel.setLayout(null);
 
-        // Botón "Regresar" arriba derecha (más redondo, más grande)
+        // Botón "Regresar"
+
         RoundedPanel regresarPanel = new RoundedPanel(30);
         regresarPanel.setBackground(new Color(255, 191, 73));
         regresarPanel.setBounds(895, 15, 80, 48);
@@ -33,16 +34,18 @@ public class RegistroSwing extends JFrame {
         panel.add(regresarPanel);
 
         // Acción: regresar a login
+
         lblRegresar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                RegistroSwing.this.dispose();
+                Registro.this.dispose();
                 if (ventanaLogin != null) ventanaLogin.setVisible(true);
             }
         });
 
         // Título "Registro"
-        JLabel lblTitulo = new JLabel("Registro", SwingConstants.CENTER);
+
+        JLabel lblTitulo = new JLabel("Registro - AndyBurger", SwingConstants.CENTER);
         lblTitulo.setOpaque(true);
         lblTitulo.setBackground(new Color(255, 191, 73));
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 56));
@@ -50,6 +53,7 @@ public class RegistroSwing extends JFrame {
         panel.add(lblTitulo);
 
         // Fondo del formulario
+
         RoundedPanel formBg = new RoundedPanel(40);
         formBg.setBackground(new Color(255, 219, 119));
         formBg.setBounds(180, 175, 640, 270);
@@ -66,6 +70,7 @@ public class RegistroSwing extends JFrame {
         int yGap = 56;
 
         // Etiqueta y campo "Nombre"
+
         JLabel lblNombre = new JLabel("Nombre", SwingConstants.CENTER);
         lblNombre.setOpaque(true);
         lblNombre.setBackground(new Color(255, 191, 73));
@@ -79,6 +84,7 @@ public class RegistroSwing extends JFrame {
         formBg.add(txtNombre);
 
         // Etiqueta y campo "Telefono"
+
         JLabel lblTelefono = new JLabel("Telefono", SwingConstants.CENTER);
         lblTelefono.setOpaque(true);
         lblTelefono.setBackground(new Color(255, 191, 73));
@@ -92,6 +98,7 @@ public class RegistroSwing extends JFrame {
         formBg.add(txtTelefono);
 
         // Etiqueta y campo "Contraseña"
+
         JLabel lblContra = new JLabel("Contraseña", SwingConstants.CENTER);
         lblContra.setOpaque(true);
         lblContra.setBackground(new Color(255, 191, 73));
@@ -105,6 +112,7 @@ public class RegistroSwing extends JFrame {
         formBg.add(txtContra);
 
         // Etiqueta y combo "Tipo de Cuenta"
+
         JLabel lblTipoCuenta = new JLabel("Tipo de Cuenta", SwingConstants.CENTER);
         lblTipoCuenta.setOpaque(true);
         lblTipoCuenta.setBackground(new Color(255, 191, 73));
@@ -118,6 +126,7 @@ public class RegistroSwing extends JFrame {
         formBg.add(comboTipo);
 
         // Botón "Registrar"
+
         JButton btnRegistrar = new JButton("Registrar");
         btnRegistrar.setBackground(new Color(255, 191, 73));
         btnRegistrar.setFont(new Font("Arial", Font.BOLD, 34));
@@ -126,7 +135,8 @@ public class RegistroSwing extends JFrame {
         btnRegistrar.setBorderPainted(false);
         panel.add(btnRegistrar);
 
-        // Acción: Registrar usuario
+        // Registrar usuario y con Validación
+
         btnRegistrar.addActionListener(evt -> {
             String nombre = txtNombre.getText().trim();
             String telefono = txtTelefono.getText().trim();
@@ -135,6 +145,15 @@ public class RegistroSwing extends JFrame {
 
             if (nombre.isEmpty() || telefono.isEmpty() || contrasena.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Completa todos los campos.");
+                return;
+            }
+
+            if (telefono.length() < 8) {
+                JOptionPane.showMessageDialog(this, "El teléfono debe tener al menos 8 caracteres.");
+                return;
+            }
+            if (contrasena.length() < 8) {
+                JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 8 caracteres.");
                 return;
             }
 
@@ -151,8 +170,9 @@ public class RegistroSwing extends JFrame {
         setContentPane(panel);
     }
 
-    // Panel de fondo personalizado (fondo amarillo claro)
-    class FondoAndyBurger extends JPanel {
+    // Panel de fondo personalizado
+
+    public class FondoAndyBurger extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -161,7 +181,8 @@ public class RegistroSwing extends JFrame {
     }
 
     // Panel con esquinas redondeadas
-    class RoundedPanel extends JPanel {
+
+    public class RoundedPanel extends JPanel {
         private int cornerRadius;
         public RoundedPanel(int radius) {
             super();
@@ -178,6 +199,7 @@ public class RegistroSwing extends JFrame {
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             // Fondo
+
             graphics.setColor(getBackground());
             graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
         }

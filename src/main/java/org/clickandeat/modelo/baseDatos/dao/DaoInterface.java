@@ -10,4 +10,5 @@ public interface DaoInterface<T extends Entidad>{
     boolean actualizar( T t );
     boolean eliminar( T t );
     T findById( int id );
+
 }

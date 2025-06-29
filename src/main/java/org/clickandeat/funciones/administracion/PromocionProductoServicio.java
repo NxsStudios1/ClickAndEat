@@ -22,16 +22,7 @@ public class PromocionProductoServicio {
         return promocionProductoDao.guardar(pp);
     }
 
-    public boolean actualizarPromocionProducto(PromocionProducto pp) {
-        return promocionProductoDao.actualizar(pp);
-    }
-
-    public boolean eliminarPromocionProducto(PromocionProducto pp) {
-        return promocionProductoDao.eliminar(pp);
-    }
-
     public List<PromocionProducto> obtenerPorPromocion(Promocion promocion) {
-        // Si tienes un método específico en el DAO, úsalo; si no, filtra manualmente
         List<PromocionProducto> all = promocionProductoDao.findAll();
         return all.stream()
                 .filter(pp -> pp.getPromocion() != null && pp.getPromocion().getId().equals(promocion.getId()))
@@ -47,10 +38,4 @@ public class PromocionProductoServicio {
         return ok;
     }
 
-    public List<PromocionProducto> obtenerPorProductoId(Integer idProducto) {
-        List<PromocionProducto> all = promocionProductoDao.findAll();
-        return all.stream()
-                .filter(pp -> pp.getProducto() != null && pp.getProducto().getId().equals(idProducto))
-                .toList();
-    }
 }

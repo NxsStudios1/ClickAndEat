@@ -1,4 +1,4 @@
-package org.clickandeat.vista.ventana.adminSwing.menuProducto;
+package org.clickandeat.vista.ventana.adminSwing.administracion;
 
 import org.clickandeat.funciones.administracion.CategoriaProductoServicio;
 import org.clickandeat.funciones.administracion.ProductoServicio;
@@ -12,11 +12,10 @@ import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.Promoci
 import org.clickandeat.modelo.entidades.inventario.CategoriaProducto;
 import org.clickandeat.modelo.entidades.inventario.Producto;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-import org.clickandeat.vista.ventana.adminSwing.MenuComentariosAdministrador;
-import org.clickandeat.vista.ventana.adminSwing.MenuInventario;
-import org.clickandeat.vista.ventana.adminSwing.MenuPedidosAdministrador;
-import org.clickandeat.vista.ventana.adminSwing.menuPromociones.PanelPromociones;
-import org.clickandeat.vista.ventana.inicioSwing.InicioSesionSwing;
+import org.clickandeat.vista.ventana.adminSwing.comentario.MenuComentariosAdministrador;
+import org.clickandeat.vista.ventana.adminSwing.inventario.MenuInventario;
+import org.clickandeat.vista.ventana.adminSwing.pedidos.MenuPedidos;
+import org.clickandeat.vista.ventana.inicioSwing.InicioSesion;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -60,7 +59,7 @@ public class MenuAdministracion extends JFrame {
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // SIDEBAR IZQUIERDO
+        // Sidebar Izquierdo
         JPanel panelIzquierdo = new JPanel();
         panelIzquierdo.setBackground(new Color(255, 162, 130));
         panelIzquierdo.setPreferredSize(new Dimension(270, 1000));
@@ -81,7 +80,7 @@ public class MenuAdministracion extends JFrame {
         panelArriba.add(separator, BorderLayout.SOUTH);
         panelIzquierdo.add(panelArriba, BorderLayout.NORTH);
 
-        // Panel de botones menú (centrados)
+        // Panel de botones menú
         JPanel panelBotones = new JPanel(new GridBagLayout());
         panelBotones.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -157,7 +156,7 @@ public class MenuAdministracion extends JFrame {
             if (menuAdministradorSwing != null) {
                 menuAdministradorSwing.setVisible(true);
             } else {
-                new InicioSesionSwing(usuarioServicio, null).setVisible(true);
+                new InicioSesion(usuarioServicio, null).setVisible(true);
             }
         });
 
@@ -169,11 +168,11 @@ public class MenuAdministracion extends JFrame {
             });
         }
 
-        // Acción Pedidos (te regresa al menú de pedidos y al salir, vuelve a menuAdministradorSwing)
+        // Acción Pedidos
         if (btnPedidos != null) {
             btnPedidos.addActionListener(e -> {
                 this.setVisible(false);
-                new MenuPedidosAdministrador(usuario, usuarioServicio, menuAdministradorSwing).setVisible(true);
+                new MenuPedidos(usuario, usuarioServicio, menuAdministradorSwing).setVisible(true);
             });
         }
 
@@ -187,7 +186,7 @@ public class MenuAdministracion extends JFrame {
 
         panelIzquierdo.add(panelBotones, BorderLayout.CENTER);
 
-        // PANEL DERECHO
+        // Panel Derecho
         JPanel panelDerecho = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -234,7 +233,7 @@ public class MenuAdministracion extends JFrame {
         panelTabs.add(btnProducto);
         panelTabs.add(btnPromociones);
 
-        // PANEL CENTRAL - FlowLayout para separar y alinear al "izquierdo"
+        // Panel Central - FlowLayout para separar y alinear
         panelCentral = new JPanel();
         panelCentral.setLayout(new BoxLayout(panelCentral, BoxLayout.Y_AXIS));
         panelCentral.setBackground(new Color(246, 227, 203));
@@ -268,7 +267,7 @@ public class MenuAdministracion extends JFrame {
         btnActivo.setBackground(Color.WHITE);
     }
 
-    // PANEL PRODUCTO CON TABLAS GRANDES, TÍTULOS CENTRADOS Y BUSCAR A LA DERECHA
+    // Panel Producto
     private void mostrarPanelProducto() {
         panelCentral.removeAll();
 
@@ -276,13 +275,13 @@ public class MenuAdministracion extends JFrame {
         panelTablas.setLayout(new BoxLayout(panelTablas, BoxLayout.Y_AXIS));
         panelTablas.setOpaque(false);
 
-        // --- Categoría Producto ---
+        //  Categoría Producto
         JPanel panelCategoria = new JPanel();
         panelCategoria.setOpaque(false);
         panelCategoria.setLayout(new BorderLayout());
         panelCategoria.setMaximumSize(new Dimension(1200, 210));
 
-        // Header Categoría (centrado y buscar a la derecha)
+        // Header Categoría
         JPanel headerCategoria = new JPanel(new BorderLayout());
         headerCategoria.setOpaque(false);
         JPanel headerCatCenter = new JPanel();
@@ -317,7 +316,7 @@ public class MenuAdministracion extends JFrame {
         panelTablaCat.setOpaque(false);
         panelTablaCat.add(scrollCategoria);
 
-        // CENTRAR TEXTO EN CELDAS Y HEADERS
+        // Centrar Tecto
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         for (int i = 0; i < tablaCategoria.getColumnCount(); i++) {
@@ -342,7 +341,7 @@ public class MenuAdministracion extends JFrame {
         panelCategoria.add(panelTablaCat, BorderLayout.CENTER);
         panelCategoria.add(panelBotonesCat, BorderLayout.SOUTH);
 
-        // --- Producto ---
+        //  Producto
         JPanel panelProducto = new JPanel();
         panelProducto.setOpaque(false);
         panelProducto.setLayout(new BorderLayout());
@@ -376,23 +375,22 @@ public class MenuAdministracion extends JFrame {
         tablaProducto.getTableHeader().setFont(new Font(FUENTE_BONITA, Font.BOLD, 18));
         tablaProducto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // ==== TABLA MUCHO MÁS ANCHA ====
         tablaProducto.setPreferredScrollableViewportSize(new Dimension(1500, 250));
         JScrollPane scrollProducto = new JScrollPane(tablaProducto);
         scrollProducto.setPreferredSize(new Dimension(1550, 400));
-        // Ajusta los anchos de columna a tu gusto
+
         int[] anchoColumnas = {70, 300, 450, 180, 130, 130};
         for (int i = 0; i < anchoColumnas.length && i < tablaProducto.getColumnCount(); i++) {
             tablaProducto.getColumnModel().getColumn(i).setPreferredWidth(anchoColumnas[i]);
             tablaProducto.getColumnModel().getColumn(i).setMinWidth(50);
         }
-        // ===========================
+
 
         JPanel panelTablaProd = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         panelTablaProd.setOpaque(false);
         panelTablaProd.add(scrollProducto);
 
-        // CENTRAR CELDAS Y HEADERS
+        // Centrar Celdas y Headers
         DefaultTableCellRenderer centerRendererProd = new DefaultTableCellRenderer();
         centerRendererProd.setHorizontalAlignment(JLabel.CENTER);
         for (int i = 0; i < tablaProducto.getColumnCount(); i++) {
@@ -457,12 +455,7 @@ public class MenuAdministracion extends JFrame {
         );
 
         btnEliminarCategoria.addActionListener(e ->
-                DialogoProducto.dialogEliminarCategoria(
-                        this,
-                        categoriaServicio,
-                        categoriaTableModel,
-                        productoServicio, // aquí lo pasas
-                        tablaCategoria.getSelectedRow()
+                DialogoProducto.dialogEliminarCategoria(this, categoriaServicio, categoriaTableModel, productoServicio, tablaCategoria.getSelectedRow()
                 )
         );
 
@@ -510,8 +503,6 @@ public class MenuAdministracion extends JFrame {
         panelCentral.repaint();
     }
 
-
-    // ========== MODELOS DE TABLA ==========
     static class CategoriaTableModel extends AbstractTableModel {
         private final String[] columnas = {"ID", "Nombre"};
         private List<CategoriaProducto> categorias = new ArrayList<>();

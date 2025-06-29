@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.clickandeat.modelo.entidades.base.Entidad;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-
 import java.time.LocalDateTime;
 
 @Data

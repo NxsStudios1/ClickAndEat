@@ -20,7 +20,7 @@ public class VentanaBienvenida extends JFrame {
 
         ImageIcon logoAndyBurger = new ImageIcon(getClass().getResource("/recursosGraficos/logos/logo_andyBurger.png"));
 
-        // Panel "Salir" arriba derecha
+        // Panel "Salir"
         JPanel salirPanel = new JPanel(null);
         salirPanel.setBackground(new Color(255, 194, 92));
         salirPanel.setBounds(570, 0, 130, 44);
@@ -63,7 +63,7 @@ public class VentanaBienvenida extends JFrame {
 
         // Acción para continuar
         btnContinuar.addActionListener(e -> {
-            new InicioSesionSwing(usuarioServicio, this).setVisible(true); // <-- le pasas this
+            new InicioSesion(usuarioServicio, this).setVisible(true); // <-- le pasas this
             setVisible(false);
         });
 
@@ -71,7 +71,7 @@ public class VentanaBienvenida extends JFrame {
     }
 
     // Panel de fondo personalizado
-    class FondoAndyBurger extends JPanel {
+    public class FondoAndyBurger extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);

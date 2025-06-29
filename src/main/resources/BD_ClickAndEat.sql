@@ -150,6 +150,7 @@ CREATE TABLE tbl_promocionProducto(
 
 CREATE TABLE tbl_detallePedido (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    tipoItem ENUM('PRODUCTO', 'PROMOCION') NOT NULL,
     cantidad INT NOT NULL DEFAULT 1,
     precioUnitario DOUBLE NOT NULL,
     subtotal DOUBLE NOT NULL,

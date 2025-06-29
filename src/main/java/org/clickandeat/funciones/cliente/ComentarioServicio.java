@@ -23,21 +23,13 @@ public class ComentarioServicio {
         boolean ok = comentarioDao.guardar(comentario);
         if (!ok)
             return " Ocurrió un Error al Guardar el Comentario en la Base de Datos.";
-
         return null;
-    }
-
-    public boolean actualizarComentario(Comentario comentario) {
-        return comentarioDao.actualizar(comentario);
     }
 
     public List<Comentario> obtenerTodos() {
         return comentarioDao.findAllConRespuestasYCliente();
     }
 
-    public Comentario buscarPorId(int id) {
-        return comentarioDao.findById(id);
-    }
 
     public boolean eliminar(Comentario comentario) {
         return comentarioDao.eliminar(comentario);

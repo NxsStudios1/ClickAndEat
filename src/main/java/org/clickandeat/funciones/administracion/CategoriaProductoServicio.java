@@ -1,9 +1,7 @@
 package org.clickandeat.funciones.administracion;
 
 import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.CategoriaProductoDao;
-import org.clickandeat.modelo.baseDatos.dao.implementacion.inventarioDao.ProductoDao;
 import org.clickandeat.modelo.entidades.inventario.CategoriaProducto;
-import org.clickandeat.modelo.entidades.inventario.Producto;
 
 import java.util.List;
 
@@ -31,8 +29,4 @@ public class CategoriaProductoServicio {
         return categoriaProductoDao.eliminar(categoria);
     }
 
-
-    public CategoriaProducto buscarPorId(int id) {
-        return categoriaProductoDao.findById(id);
-    }
 }

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.clickandeat.modelo.entidades.base.Entidad;
 import org.clickandeat.modelo.entidades.sesion.Usuario;
-
 import java.time.LocalDateTime;
 import java.util.List;
 

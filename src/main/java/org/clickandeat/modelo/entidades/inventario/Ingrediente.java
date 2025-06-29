@@ -32,4 +32,5 @@ public class Ingrediente extends Entidad {
 
     @Column(nullable = false)
     private Double precioUnitario;
+
 }

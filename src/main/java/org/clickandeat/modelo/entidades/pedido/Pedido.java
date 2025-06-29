@@ -39,4 +39,5 @@ public class Pedido extends Entidad {
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<DetallePedido> detalles;
+
 }
